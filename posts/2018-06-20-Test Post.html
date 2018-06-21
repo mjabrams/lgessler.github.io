@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-06-21 Thu 00:20 -->
+<!-- 2018-06-21 Thu 00:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Test Post</title>
@@ -236,6 +236,35 @@ for the JavaScript code in this tag.
 <p>
 Hello, I am a test post!
 </p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #C4BE89;">(</span><span style="color: #66D9EF;">defn-</span> <span style="color: #F92672; font-style: italic;">bubble-step</span>
+  <span style="color: #E6DB74; font-style: italic;">"was-changed: whether any elements prior to the current first element</span>
+<span style="color: #E6DB74; font-style: italic;">  were swapped;</span>
+<span style="color: #E6DB74; font-style: italic;">  returns a two-element vector [partially-sorted-sequence is-sorted]"</span>
+ <span style="color: #FD971F;">[</span>less? xs was-changed<span style="color: #FD971F;">]</span>
+  <span style="color: #FD971F;">(</span><span style="color: #66D9EF;">if</span> <span style="color: #EF5939;">(</span>&lt; <span style="color: #F92672;">(</span>count xs<span style="color: #F92672;">)</span> <span style="color: #AE81FF;">2</span><span style="color: #EF5939;">)</span>
+    <span style="color: #EF5939;">[</span>xs <span style="color: #F92672;">(</span>not was-changed<span style="color: #F92672;">)</span><span style="color: #EF5939;">]</span>
+    <span style="color: #EF5939;">(</span><span style="color: #66D9EF;">let</span> <span style="color: #F92672;">[</span><span style="color: #960050;">[</span>x1 x2 &amp; xr<span style="color: #960050;">]</span> xs
+    first-is-smaller   <span style="color: #960050;">(</span>less? x1 x2<span style="color: #960050;">)</span>
+    is-changed         <span style="color: #960050;">(</span><span style="color: #66D9EF;">or</span> was-changed <span style="color: #AE81FF;">(</span>not first-is-smaller<span style="color: #AE81FF;">)</span><span style="color: #960050;">)</span>
+    <span style="color: #960050;">[</span>smaller larger<span style="color: #960050;">]</span>   <span style="color: #960050;">(</span><span style="color: #66D9EF;">if</span> first-is-smaller <span style="color: #AE81FF;">[</span>x1 x2<span style="color: #AE81FF;">]</span> <span style="color: #AE81FF;">[</span>x2 x1<span style="color: #AE81FF;">]</span><span style="color: #960050;">)</span>
+    <span style="color: #960050;">[</span>result is-sorted<span style="color: #960050;">]</span> <span style="color: #960050;">(</span>bubble-step
+            less? <span style="color: #AE81FF;">(</span>cons larger xr<span style="color: #AE81FF;">)</span> is-changed<span style="color: #960050;">)</span><span style="color: #F92672;">]</span>
+      <span style="color: #F92672;">[</span><span style="color: #960050;">(</span>cons smaller result<span style="color: #960050;">)</span> is-sorted<span style="color: #F92672;">]</span><span style="color: #EF5939;">)</span><span style="color: #FD971F;">)</span><span style="color: #C4BE89;">)</span>
+
+<span style="color: #C4BE89;">(</span><span style="color: #66D9EF;">defn</span> <span style="color: #F92672; font-style: italic;">bubble-sort</span>
+  <span style="color: #E6DB74; font-style: italic;">"Takes an optional less-than predicate and a sequence.</span>
+<span style="color: #E6DB74; font-style: italic;">  Returns the sorted sequence.</span>
+<span style="color: #E6DB74; font-style: italic;">  Very inefficient (O(n&#178;))"</span>
+  <span style="color: #FD971F;">(</span><span style="color: #EF5939;">[</span>xs<span style="color: #EF5939;">]</span> <span style="color: #EF5939;">(</span>bubble-sort &lt;= xs<span style="color: #EF5939;">)</span><span style="color: #FD971F;">)</span>
+  <span style="color: #FD971F;">(</span><span style="color: #EF5939;">[</span>less? xs<span style="color: #EF5939;">]</span> 
+     <span style="color: #EF5939;">(</span><span style="color: #66D9EF;">let</span> <span style="color: #F92672;">[</span><span style="color: #960050;">[</span>result is-sorted<span style="color: #960050;">]</span> <span style="color: #960050;">(</span>bubble-step less? xs <span style="color: #AE81FF;">false</span><span style="color: #960050;">)</span><span style="color: #F92672;">]</span>
+       <span style="color: #F92672;">(</span><span style="color: #66D9EF;">if</span> is-sorted
+   result
+   <span style="color: #960050;">(</span><span style="color: #66D9EF;">recur</span> less? result<span style="color: #960050;">)</span><span style="color: #F92672;">)</span><span style="color: #EF5939;">)</span><span style="color: #FD971F;">)</span><span style="color: #C4BE89;">)</span>
+</pre>
+</div>
 </div>
 </body>
 </html>
