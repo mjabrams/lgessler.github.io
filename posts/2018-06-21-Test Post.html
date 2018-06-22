@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-06-21 Thu 15:52 -->
+<!-- 2018-06-21 Thu 23:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Test Post</title>
@@ -253,19 +253,21 @@ for the JavaScript code in this tag.
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
+<div id="preamble" class="status">
+<div style="position:absolute;font-size:11px;"><a href="/">Home</a> <a href="/posts/">Blog</a></div>
+</div>
 <div id="content">
 <h1 class="title">Test Post</h1>
 <p>
 Code block:
 </p>
 
-<div class="org-src-container">
-<pre class="src src-clojure"><span style="color: #C4BE89;">(</span><span style="color: #66D9EF;">def</span> <span style="color: #F92672;">fib-seq</span> 
-  <span style="color: #FD971F;">(</span><span style="color: #EF5939;">(</span>fn <span style="color: #F92672; font-style: italic;">rfib</span> <span style="color: #F92672;">[</span>a b<span style="color: #F92672;">]</span> 
-     <span style="color: #F92672;">(</span>lazy-seq <span style="color: #960050;">(</span>cons a <span style="color: #AE81FF;">(</span>rfib b <span style="color: #66D9EF;">(</span>+ a b<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span><span style="color: #960050;">)</span><span style="color: #F92672;">)</span><span style="color: #EF5939;">)</span>
-   <span style="color: #AE81FF;">0</span> <span style="color: #AE81FF;">1</span><span style="color: #FD971F;">)</span><span style="color: #C4BE89;">)</span>
+<pre class="example">
+(def fib-seq 
+  ((fn rfib [a b] 
+     (lazy-seq (cons a (rfib b (+ a b)))))
+   0 1))
 </pre>
-</div>
 
 <p>
 LaTeX:
