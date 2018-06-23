@@ -1,7 +1,6 @@
 body {
-    max-width: 600px;
+    max-width: 800px;
     padding: 6px;
     margin: 0 auto;
-    /*background-color: #e0e0e0;*/
     font-family: 'Roboto', sans-serif;
 }
