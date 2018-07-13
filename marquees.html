@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title></title>
-<!-- 2018-07-12 Thu 21:09 -->
+<!-- 2018-07-12 Thu 21:29 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -198,7 +198,7 @@ $(function() {
 </div>
 <div id="content" class="container">
 <div class="row"><div class="col-md-9"><h1 class="title"></h1>
-<marquee id="marky" style="font-family: Comic Sans MS;color:red;font-size:24px;">Welcome to my &lt;marquee&gt; page!</marquee>
+<marquee id="marky" style="font-family: Comic Sans MS;color:red;font-size:24px;" scrollamount="24">Welcome to my &lt;marquee&gt; page!</marquee>
 <script>
 (function(){
 var colors = 
@@ -255,6 +255,7 @@ var colors =
 "#e87d7d"];
 var m = document.getElementById("marky");
 var i = 0;
+var s;
 
 window.setInterval(function() {
   m.setAttribute("scrollamount", 40 + 30 * Math.cos(++i / 5));
@@ -263,7 +264,12 @@ window.setInterval(function() {
 
 m.style.transition = "300ms ease all";
 window.setInterval(function() {
-  m.style.transform = "rotate(" + (3 * Math.random() * Math.sin(i)) + "deg)";
+  s = "rotate(" + (3 * Math.random() * Math.sin(i)) + "deg)"
+      + "skewY(" + 5 * Math.sin(i) * Math.random() +"deg)"
+      + "skewX(" + 5 * Math.cos(i) * Math.random() +"deg)"
+      + "scaleX(" + (1 + 0.25 * Math.cos(i) * Math.random()) + ")" 
+      + "scaleY(" + (1 + 0.25 * Math.sin(i) * Math.random()) + ")";
+  m.style.transform = s;
 }, 20);
 
 })();
