@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Choosing the Right Tools for a Language Documentation App</title>
-<!-- 2018-07-13 Fri 01:45 -->
+<!-- 2018-07-13 Fri 14:11 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -228,11 +228,15 @@ If getting more people involved isn't possible, then all that's left is to make 
 </p>
 
 <p>
-I see some low-hanging fruit: the langdoc app developer community has not tried using tools that could improve their productivity dramatically. So far, the community has not strayed too far from very common tools (JS, Java, C#, Python), and it has struggled to effectively grapple with certain problems, including good UX, data synchronization, cross-platform portability, and offline support. Choosing the right programming language and libraries for the task can make development that might have been an aching slog nearly trivial. It may be that using different tools could help developers in this space make better use of the precious little time and energy they have to do their work<sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>. 
+I see an opportunity: using new tools. So far, the community has not strayed too far from very common tools (JS, Java, C#, Python), and it has struggled to effectively grapple with certain problems, including good UX, data synchronization, cross-platform portability, and offline support. Choosing the right programming language and libraries for the task can make development that might have been an aching slog nearly trivial. Of course, a new tool should not be used merely <a href="https://blog.codinghorror.com/the-magpie-developer/">for novelty's sake</a>. As long as we pick tools by their usefulness, and not their fashionability or novelty, we might be able to make better use of the precious little time and energy langdoc developers have to do their work<sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>.
 </p>
 
 <p>
-In order to investigate this possibility, I recreated a subset of the popular linguistic annotation tool, <a href="https://tla.mpi.nl/tools/tla-tools/elan/">ELAN</a>, using the tools I considered most promising for langdoc apps. This post shares my experience in building this ELAN clone, <a href="https://github.com/lgessler/ewan">EWAN</a>. In section 2, I will outline my motivations for why I chose the tools I used. In section 3, I will discuss my implementation. In section 4, I go into more depth on whether the tools I chose did in fact make a difference. In section 5, I conclude.
+To investigate this possibility, I recreated a subset of the popular linguistic annotation tool, <a href="https://tla.mpi.nl/tools/tla-tools/elan/">ELAN</a>, using the tools I considered most promising for langdoc apps. If I'm interested in langdoc apps, why did I clone ELAN, which is a linguistic annotation app? In short, because (1) this let me skip the design phase, (2) ELAN's use-patterns are close enough to that of a langdoc app, and (3) ELAN has non-trivial features that a simple CRUD app does not, ensuring that I would test my tools against hard problems.
+</p>
+
+<p>
+This post shares my experience in building this ELAN clone, <a href="https://github.com/lgessler/ewan">EWAN</a>. In section 2, I will outline my motivations for why I chose the tools I used. In section 3, I will discuss my implementation. In section 4, I go into more depth on whether the tools I chose did in fact make a difference. In section 5, I conclude.
 </p>
 </div>
 </div>
@@ -1185,7 +1189,7 @@ It's also worth noting that there's <a href="https://github.com/pouchdb-communit
 </p></div>
 
 <div class="footdef"><sup><a id="fn.16" name="fn.16" class="footnum" href="#fnr.16">16</a></sup> <p class="footpara">
-There included Kotlin, Scala.js, OCaml/Reason, and Dart, among others. 
+There included Kotlin, Scala.js, OCaml/Reason, and Dart, among others.
 </p></div>
 
 <div class="footdef"><sup><a id="fn.17" name="fn.17" class="footnum" href="#fnr.17">17</a></sup> <p class="footpara">

@@ -59,6 +59,13 @@ blockquote {
 }
 
 /**
+ * make headers more dark
+ */
+h2 { color: black; }
+h3 { color: black; }
+h4 { color: black; }
+
+/**
  * overwrite syntax highlighting with vals from leuven theme
  */
 pre                                      {background-color:#FFFFFF;}

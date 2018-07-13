@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title></title>
-<!-- 2018-07-13 Fri 13:13 -->
+<!-- 2018-07-13 Fri 14:11 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -198,7 +198,17 @@ $(function() {
 </div>
 <div id="content" class="container">
 <div class="row"><div class="col-md-9"><h1 class="title"></h1>
-<marquee id="marky" style="font-family: Comic Sans MS;color:red;font-size:24px;" behavior="alternate" height="150" direction="down"><marquee behavior="alternate">Welcome to my &lt;marquee&gt; museum!</marquee></marquee>
+<style>
+blink {
+    animation: 2s linear infinite condemned_blink_effect;
+}
+</style>
+<blink style="font-variant:small-caps;position:fixed;top:50px;left:50%;">everybody has a good time</blink>
+<div style="background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet)">
+<marquee id="marky" style="font-family: Comic Sans MS;color:red;font-size:24px;padding-bottom:-32px;padding-top:-20px;" behavior="alternate" height="200" direction="down">
+<marquee behavior="alternate">Welcome to my &lt;marquee&gt; museum!</marquee>
+</marquee>
+</div>
 <script>
 (function(){
 var colors = 
@@ -263,28 +273,28 @@ window.setInterval(function() {
   m.style.color = colors[i % colors.length];
 }, 240);
 
-m.style.transition = "300ms ease all";
+m.style.transition = "500ms ease all";
 window.setInterval(function() {
-  s = "rotate(" + (3 * Math.random() * Math.sin(i)) + "deg)"
-      + "skewY(" + 5 * Math.sin(i) * Math.random() +"deg)"
-      + "skewX(" + 5 * Math.cos(i) * Math.random() +"deg)"
-      + "scaleX(" + (1 + 0.25 * Math.cos(i) * Math.random()) + ")" 
-      + "scaleY(" + (1 + 0.25 * Math.sin(i) * Math.random()) + ")";
+  s = "rotate(" + (3 * (0.5 + Math.random()) * Math.sin(i / 5)) + "deg)"
+      + "skewY(" + 5 * Math.sin(i / 10) * (0.5 + Math.random()) +"deg)"
+      + "skewX(" + 5 * Math.cos(i / 10) * (0.5 + Math.random()) +"deg)"
+      + "scaleX(" + (1 + 0.25 * Math.cos(i / 8) * (0.5 + Math.random())) + ")" 
+      + "scaleY(" + (1 + 0.25 * Math.sin(i / 8) * (0.5 + Math.random())) + ")";
   m.style.transform = s;
 }, 20);
 
 })();
 </script>
 <p>
-My spottings of the <code>&lt;marquee&gt;</code> HTML tag in the wild:
+The <a href="https://en.wikipedia.org/wiki/Marquee_element"><code>&lt;marquee&gt;</code> element</a> is from a different time in browser history, when it was more acceptable to make websites with whimsy. These days, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/marquee">bleeding hearts who accuse it of being user-hostile discourage its use</a>, but every major web browser continues to support it. This is my catalog of spottings of the <code>&lt;marquee&gt;</code> tag in the wild.
 </p>
 
 <ul class="org-ul">
-<li><a href="http://ijdl.org/">http://ijdl.org/</a> (2018-07-02)
+<li><a href="http://www.linguistics.ucsb.edu/faculty/stgries/">Stefan Th. Gries' personal page</a> (2018-07-13)
 </li>
-<li><a href="http://thecrystalcornerbar.com/">http://thecrystalcornerbar.com/</a> (2018-07-13)
+<li><a href="http://thecrystalcornerbar.com/">The Crystal Corner</a>, a historic dive bar in Madison, Wisconsin (2018-07-13)
 </li>
-<li><a href="http://www.linguistics.ucsb.edu/faculty/stgries/">http://www.linguistics.ucsb.edu/faculty/stgries/</a> (2018-07-13)
+<li><a href="http://ijdl.org/">International Journal of Dravidian Linguistics</a> (2018-07-02)
 </li>
 </ul>
 </div><div class="col-md-3"></div></div></div>
