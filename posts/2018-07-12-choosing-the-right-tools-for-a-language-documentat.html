@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Choosing the Right Tools for a Language Documentation App</title>
-<!-- 2018-07-13 Fri 15:50 -->
+<!-- 2018-07-13 Fri 16:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -889,7 +889,7 @@ It would likely be possible to make a similar app for the desktop while avoiding
 <h3 id="sec-4-2"><span class="section-number-3">4.2</span> Material-UI vs. homemade components</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
-Historically, most langdoc apps I'm aware of that targeted the browser implemented their own UI elements, either from scratch<sup><a id="fnr.11" name="fnr.11" class="footref" href="#fn.11">11</a></sup> or with the assistance of only a CSS framework<sup><a id="fnr.12" name="fnr.12" class="footref" href="#fn.12">12</a></sup>. Now that high-quality component libraries are available (a recent development), it cannot be overstated how much langdoc app developers could benefit from them. There is no longer a reaosn to bear the burden of creating and maintaining basic UI components like input elements and dropdown menus when open source libraries like <a href="https://material-ui.com/demos/autocomplete/">Material-UI</a> could take care of all this work for them.
+Historically, most langdoc apps I'm aware of that targeted the browser implemented their own UI elements, either from scratch<sup><a id="fnr.11" name="fnr.11" class="footref" href="#fn.11">11</a></sup> or with the assistance of only a CSS framework<sup><a id="fnr.12" name="fnr.12" class="footref" href="#fn.12">12</a></sup>. Now that high-quality component libraries are available (a recent development), it cannot be overstated how much langdoc app developers could benefit from them. There is no longer a reason to bear the burden of creating and maintaining basic UI components like input elements and dropdown menus when open source libraries like <a href="https://material-ui.com/demos/autocomplete/">Material-UI</a> could take care of all this work for them.
 </p>
 
 <p>
@@ -988,7 +988,7 @@ We have seen these two shortcomings&#x2013;coarse security settings and document
 </p>
 
 <p>
-If these are the only problems there are, the mind boggles at how much time using the PouchDB/CouchDB architecture saves compared to a traditional three-layered architecture with an application server in between the database and the client. As the quotes at the beginning of the section point out, some apps cry out for server code, but for CRUD apps (which a langdoc app undoubtedly is), server code is often just a repetition of what we have already written elsewhere.
+If these are the only problems there are, the mind boggles at how much time using the PouchDB/CouchDB architecture saves compared to a traditional three-layered architecture with an application server in between the database and the client. As the quotes at the beginning of the section point out, some apps cry out for server code, but for CRUD apps (which a langdoc app undoubtedly is), server code is often just a repetition of what we have already written elsewhere. And let's not forget the first reason we looked at PouchDB in the first place: we get offline-first support for free.
 </p>
 </div>
 </div>
@@ -1013,12 +1013,12 @@ Our hypothesis was that if we wrote our software in Lisp, we'd be able to get fe
 </p>
 
 <p>
-What's so great about Lisp? And if Lisp is so great, why doesn't everyone use it? These sound like rhetorical questions, but actually they have straightforward answers. Lisp is so great not because of some magic quality visible only to devotees, but because it is simply the most powerful language available. And the reason everyone doesn't use it is that programming languages are not merely technologies, but habits of mind as well, and nothing changes slower. &#x2013; <a href="http://www.paulgraham.com/avg.html">Paul Graham</a>
+What's so great about Lisp? And if Lisp is so great, why doesn't everyone use it? [&#x2026;] Lisp is so great [&#x2026;] because it is simply the most powerful language available. And the reason everyone doesn't use it is that programming languages are not merely technologies, but habits of mind as well, and nothing changes slower. &#x2013; <a href="http://www.paulgraham.com/avg.html">Paul Graham</a>
 </p>
 </blockquote>
 
 <p>
-Let me begin this controversial section by repeating what should be common sense: there is no best programming language. A language can be more or less suited to a circumstance, but it's useless at best to speak of an ideal programming language devoid of context. Let us ask the question in the circumstance we have been considering, then: what is the best programming language for creating a langdoc app that is comprehensive, maintainable, and extensible with the extremely finite resources that are available for it?
+Let me begin this controversial section by repeating what should go without saying: there is no best programming language. A language can be more or less suited to a circumstance, but it's questionable to speak of an ideal programming language devoid of context. Let us ask the question in the circumstance we have been considering, then: what is the best programming language for creating a langdoc app that is comprehensive, maintainable, and extensible with the extremely finite resources that are available for it?
 </p>
 
 <p>
@@ -1051,7 +1051,7 @@ There are many compile-to-JS languages<sup><a id="fnr.16" name="fnr.16" class="f
 </ul>
 
 <p>
-Even JavaScript's most heavy users agree that it suffers from many unfortunate design decisions that reflect its creator's assumption that it would be used in handfuls of lines at a time written by a novice user. The ECMAScript committee has been busy fixing some of these deficiencies, but this has put a great maintenance burden on the community, which has been sinking much time into keeping up with the latest tools and features. 
+Even JavaScript's most faithful users agree that it suffers from many unfortunate design decisions that reflect its creator's assumption that it would be sprinkled in by novice users, handfuls at a time. The ECMAScript committee has been busy fixing some of these deficiencies, but this has put a great maintenance burden on the community, which has been sinking much time into keeping up with the latest tools and features. 
 </p>
 </div>
 </div>
@@ -1081,7 +1081,7 @@ Even JavaScript's most heavy users agree that it suffers from many unfortunate d
 </ul>
 
 <p>
-Learning a Lisp-family language is already a daunting task, and learning ClojureScript really requires you to learn two: Clojure, and its host language on this platform, JavaScript. The bounty the Clojure wizards tell you is at the end of this gauntlet is a language with a dual commitment to practicality and semantic elegance that can't be found anywhere else, but needless to say, many langdoc app developers would not be keen on spending ~100 hours they could have been spending delivering features on learning a new language unless they're certain it would be worth their while.
+Learning a Lisp-family language is already a daunting task, and learning ClojureScript actually requires you to learn two: Clojure, and its host language on this platform, JavaScript. The boon the Clojure wizards tell you is at the end of this journey is a language that is both streamlined for practical use and uncompromising on semantic elegance, but needless to say, many langdoc app developers would not be keen on spending ~100 hours they could have been spending delivering features on learning a new language unless they're certain it would be worth their while.
 </p>
 </div>
 </div>
@@ -1090,7 +1090,7 @@ Learning a Lisp-family language is already a daunting task, and learning Clojure
 <h4 id="sec-4-4-3"><span class="section-number-4">4.4.3</span> Conclusion</h4>
 <div class="outline-text-4" id="text-4-4-3">
 <p>
-Unlike, say, a choice of database, I think a choice of programming language is in large part personal. Lisp fans glow red with righteous incredulity when they see programmers spurn Lisp in favor of a less powerful but syntactically prettier language, but the fact of the matter is that people have subjective and visceral reactions to a language's syntax. And as if this handicap weren't enough, ClojureScript also demands that its users radically reform their way of solving problems.
+Unlike, say, a choice of database, I think a choice of programming language is in large part personal. Lisp fans are incredulous when they see programmers turn to less powerful but syntactically prettier languages, but the fact of the matter is that people have subjective reactions language syntax that have real effects on their productivity. And as if this handicap weren't enough, ClojureScript also all but demands that its users abandon object-oriented programming for functional programming.
 </p>
 
 <p>
@@ -1100,37 +1100,34 @@ Obviously, I have found that ClojureScript the most productive browser language 
 <ul class="org-ul">
 <li>I will (almost certainly) never need to change my code to keep up with a language standard
 </li>
-<li>I will (almost certainly, based on Leiningen's track record) never need to replace my compiler or my build tool because it became obsolete
+<li>I will (almost certainly) never need to replace my compiler or my build tool because it became obsolete
 </li>
-<li>ClojureScript is a <a href="https://clojure.org/reference/macros">programmable programming language</a><sup><a id="fnr.17" name="fnr.17" class="footref" href="#fn.17">17</a></sup>
+<li>ClojureScript is a <a href="https://clojure.org/reference/macros">programmable programming language</a><sup><a id="fnr.17" name="fnr.17" class="footref" href="#fn.17">17</a></sup> which lets you create <a href="https://en.wikipedia.org/wiki/Domain-specific_language">domain-specific languages</a> when appropriate
 </li>
-<li>ClojureScript's semantics are exceptionally consistent
+<li>ClojureScript's semantics are exceptionally consistent, which helps you avoid obscure bugs and ugly code
 </li>
 <li>ClojureScript's <a href="https://clojure.org/reference/data_structures">core data structures</a> are practical and richly featured
 </li>
-<li>ClojureScript's core library is expansive, offering high-quality abstractions for <a href="https://clojure.org/reference/protocols">polymorphism</a>, <a href="https://clojure.org/reference/transducers">stream processing</a>, <a href="https://clojure.org/reference/atoms">concurrency</a>, and others
+<li>ClojureScript's core library is expansive, offering high-quality abstractions for <a href="https://clojure.org/reference/protocols">polymorphism</a>, <a href="https://clojure.org/reference/transducers">stream processing</a>, <a href="https://clojure.org/reference/atoms">concurrency</a>, and others, letting you focus on building your app
 </li>
 <li>ClojureScript's tooling is stable and high-quality, offering <a href="https://github.com/clojure/clojurescript/wiki/Google-Closure">free dead code elimination</a>, <a href="https://github.com/bhauman/lein-figwheel">hot code reloading</a>, and more
 </li>
 </ul>
 
 <p>
-Personally, when I looked at all these benefits (most of which JavaScript can't offer) and the time it would take for me to learn ClojureScript, I decided it would be worth my while to make the investment. I feel that my decision has been validated by my experience writing EWAN, but of course it's possible that my biases are making an impartial evaluation difficult.
+Personally, when I looked at all these benefits (most of which JavaScript is unable to offer) and the time it would take for me to learn ClojureScript, I decided it would be worth my while to make the investment. I feel that my decision has been validated by my experience writing EWAN, which would have taken significantly more time had I used JavaScript.
 </p>
 </div>
 </div>
 </div>
 </div>
-
 
 <div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5"><span class="section-number-2">5</span> Conclusion</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-In this post, I have tried to show you the extent to which using different tools would facilitate the development of a new kind of langdoc app. I concluded that the web browser is the only proper platform choice, that you must use a UI library for the app, that a PouchDB + CouchDB solution that omits an application server layer could be an enormous timesaver, and that ClojureScript has many tantalizing features JavaScript cannot offer that might make it worthwhile for langdoc app developers to spend the time required to learn it.
+In this post, I have tried to show the extent to which using different tools would facilitate app development in the specific conditions langdoc developers work in. I concluded that the web browser is the only proper platform choice; that you must use a UI library for the app; that a PouchDB + CouchDB solution that omits an application server layer could be an enormous timesaver and enable the app to work offline; and that ClojureScript has many productivity-enhancing features JavaScript cannot offer. It's my hope that langdoc developers will fully examine all the technical options that are available to them as they build their apps in the future, and that they will be bold in learning and using a new tool if they decide that it could help them get better features to their users faster. In langdoc, we don't have much time.
 </p>
-
-
 
 <script>
 var disqus_config = function () {
