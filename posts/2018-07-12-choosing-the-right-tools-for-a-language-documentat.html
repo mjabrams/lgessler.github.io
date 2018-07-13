@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Choosing the Right Tools for a Language Documentation App</title>
-<!-- 2018-07-13 Fri 14:17 -->
+<!-- 2018-07-13 Fri 15:50 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -231,6 +231,14 @@ If getting more people involved isn't possible, then all that's left is to make 
 I see an opportunity: using new tools. So far, the community has not strayed too far from very common tools (JS, Java, C#, Python), and it has struggled to effectively grapple with certain problems, including good UX, data synchronization, cross-platform portability, and offline support. Choosing the right programming language and libraries for the task can make development that might have been an aching slog nearly trivial. Of course, a new tool should not be used merely <a href="https://blog.codinghorror.com/the-magpie-developer/">for novelty's sake</a>. As long as we pick tools by their usefulness, and not their fashionability or novelty, we might be able to make better use of the precious little time and energy langdoc developers have to do their work<sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>.
 </p>
 
+
+<figure>
+<p><img src="./img/flex_lex_edit.png" class="img-responsive" alt="flex_lex_edit.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> A view in SIL's <a href="https://software.sil.org/fieldworks/">Field Lexicon Explorer</a>, a Windows desktop application used for fieldwork and lexicon management. (<a href="https://software.sil.org/fieldworks/resources/tutorial/lexicon/lexicon-edit/">src</a>)</figcaption>
+</figure>
+
+
 <p>
 To investigate this possibility, I recreated a subset of the popular linguistic annotation tool, <a href="https://tla.mpi.nl/tools/tla-tools/elan/">ELAN</a>, using the tools I considered most promising for langdoc apps. If I'm interested in langdoc apps, why did I clone ELAN, which is a linguistic annotation app? In short, because (1) this let me skip the design phase, (2) ELAN is relatively small, (3) ELAN's use-patterns are close enough to that of a langdoc app, and (4) ELAN has non-trivial features that a simple CRUD app does not, ensuring that I would test my tools against hard problems.
 </p>
@@ -242,10 +250,10 @@ This post shares my experience in building this ELAN clone, <a href="https://git
 </div>
 
 <div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Requirements and tool decisions</h2>
+<h2 id="sec-2"><span class="section-number-2">2</span> Requirements and tool choices</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-To guide my choices, I paid particular attention to four qualities (beyond more general, obvious ones) that I thought would be important for the kind of langdoc app I'm imagining. These are (1) being built on the most suitable platform, (2) being built with the most suitable language, (3) having offline support, and (4) having a minimum of UI code.
+To guide my choices, I paid particular attention to four qualities that I thought would be important for the kind of langdoc app I'm imagining. These are (1) being built on the most suitable platform, (2) having a minimum of UI code, (3) having offline support, and (4) being built with the most suitable language.
 </p>
 </div>
 
@@ -257,15 +265,15 @@ To guide my choices, I paid particular attention to four qualities (beyond more 
 </p>
 
 <p>
-Desktop applications allow your app the most freedom to do what it wants, but they have critical shortcomings that limit their ease of use and therefore adoption. Depending on how the application was developed, it may be limited to a specific platform&#x2013;for example, <a href="https://software.sil.org/fieldworks/">SIL's FLEx</a> is limited to Windows operating systems. And even if the program does support most desktop platforms, installation may be more or less complicated depending on whether the program holds the user accountable for managing dependencies such as language runtimes, codecs, etc. Since users are usually not technically trained, this presents a significant barrier to entry.
+Desktop applications allow your app the most freedom to do what it wants, but they have critical shortcomings that limit their ease of use and therefore adoption. Depending on how the application was developed, it may be limited to a specific platform&#x2013;for example, <a href="https://software.sil.org/fieldworks/">SIL's FLEx</a> is limited to Windows operating systems. And even if the program does support most desktop platforms, installation may be complicated if the program holds the user accountable for installing language runtimes, codecs, etc. Since users are usually not technically trained, this presents a significant barrier to entry.
 </p>
 
 <p>
-The web browser, by comparison, is slightly constrained in terms of its facilities for app developers<sup><a id="fnr.4" name="fnr.4" class="footref" href="#fn.4">4</a></sup>, but it is still powerful enough to support almost any kind of app. Very importantly, there is <i>no installation</i><sup><a id="fnr.5" name="fnr.5" class="footref" href="#fn.5">5</a></sup> required with a browser application: no codecs to install, no fuss about which Java version you have installed, no operating system heartache. Furthermore, the technologies involved (HTML, JS, CSS) were designed to be easy to get going with and are widely used. This has the double benefit of not only making the apps a little easier to develop (since the developers likely already know the tools involved), but also making it very easy to develop some kind of plugin system for power users to write scripts to help them accomplish their tasks. (More on this in section 3.6.3.)
+The web browser, by comparison, is slightly constrained in terms of its facilities for app developers<sup><a id="fnr.4" name="fnr.4" class="footref" href="#fn.4">4</a></sup>, but it is still powerful enough to support almost any kind of app. Importantly, there is <i>no installation</i><sup><a id="fnr.5" name="fnr.5" class="footref" href="#fn.5">5</a></sup> required with a browser application: no codecs to install, no fuss about which Java version you have installed, no operating system heartache. Further, the technologies involved (HTML, JS, CSS) were designed to be easy to learn. This has a double benefit: it makes the apps a little easier to develop (since the developers likely already know the tools involved), and it also makes it very easy to develop some kind of plugin system for power users to write scripts to help them accomplish their tasks. (More on this in section 3.6.3.)
 </p>
 
 <p>
-The mobile phone is the most constrained of the three platforms, primarily due to its form factor. However, its portability and ubiquity is what this form factor enables, which allows it to be in places and by people that sometimes can't be reached by the other two platforms, making it uniquely suited to apps that are designed for community members. <a href="https://lig-aikuma.imag.fr/">Aikuma</a> has enjoyed success as a langdoc tool for audio recordings, and <a href="https://drive.google.com/file/d/0BwccTAxxSD7MeXFOYjJfNzRfUEE/view">there's good reason to think they could be a critical part of documentation and revitalization strategies that heavily involve community members</a>. However, the traditional langdoc tasks that you'd imagine a documentary linguist engaging in are not most effectively carried out using a phone. Moreover, the platform is fragmented: there are two major operating systems, Android and iOS, which require different development tools<sup><a id="fnr.6" name="fnr.6" class="footref" href="#fn.6">6</a></sup>.
+The mobile phone is the most constrained of the three platforms, primarily due to its form factor. However, this has also enabled its ubiquity and portability: there are often phones where computers can't be because of financial or logistical limitations. This makes it uniquely suited to apps that are designed for community members. <a href="https://lig-aikuma.imag.fr/">Aikuma</a> has enjoyed success as a langdoc tool for audio recordings, and <a href="https://drive.google.com/file/d/0BwccTAxxSD7MeXFOYjJfNzRfUEE/view">there's good reason to think they could be a critical part of documentation and revitalization strategies that heavily involve community members</a>. However, the traditional langdoc tasks that you'd imagine a documentary linguist engaging in are not most effectively carried out using a phone. Moreover, the platform is fragmented: there are two major operating systems, Android and iOS, which require different development tools<sup><a id="fnr.6" name="fnr.6" class="footref" href="#fn.6">6</a></sup>.
 </p>
 
 <p>
@@ -275,22 +283,17 @@ There is a clear winner, then, if we intend to build a comprehensive app that is
 </div>
 
 <div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Cheap maintenance: ClojureScript</h3>
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Minimal UI development: Material-UI</h3>
 <div class="outline-text-3" id="text-2-2">
-<p>
-Software requires <a href="https://en.wikipedia.org/wiki/Software_rot">maintenance</a>. Apps necessarily make assumptions about the behavior of all of the code they use, and when that changes, the app's code might also need to change to keep working.
+
+<figure>
+<p><img src="./img/trafikito.jpg" class="img-responsive" alt="trafikito.jpg">
 </p>
+<figcaption><span class="figure-number">Figure 2:</span> Material-UI components automatically change their appearance depending on the kind of device being used. (<a href="https://material-ui.com/static/images/showcase/trafikito-monitoring.jpg">src</a>)</figcaption>
+</figure>
 
 <p>
-This code can be used within the app itself, like a JSON parser inside a program, or it could be used in the making of the app. Code in this latter category (compilers, testing frameworks, deployment tools, etc.) also changes, and nowhere has this been more true than in the JavaScript ecosystem since the mid-2000's. For complicated reasons, an entirely new set of utilities, often with genuine improvements over their predecessors most everyone would acknowledge, would appear on the scene once every 1-2 years. (<a href="https://www.alexkras.com/my-history-with-web-development-or-javascript-fatigue/">A brief history</a>.) This leaves you with two options if you are using last year's tools: (1) double down and accept the fact that your tools might be obsolete and unmaintained in a few years' time, or (2) accept that last year's tools must be abandoned, and migrate to this year's tools. Both lead to a great amount of work that has nothing to do with delivering features to users.
-</p>
-
-<p>
-Looking around, the only language that impressed me with its cheap maintenance, both with respect to tooling and libraries, was <a href="http://www.clojurenewbieguide.com/">ClojureScript</a>, a Lisp-family language that compiles to JavaScript. Its most popular build tool, <a href="https://en.wikipedia.org/wiki/Leiningen_(software)">Leiningen</a>, has kept its place as most popular ClojureScript build tool since 2009 (!). The language itself is also remarkably stable: the core of ClojureScript has not been significantly changed since 2009 and looks nearly identical to ClojureScript written today. That can't be said for 2009 JavaScript, which is now separated from the present time by several ECMAScript specification updates and shifts in style practices. On the library side, the ClojureScript ecosystem is large enough for that you can be reasonably certain the community will keep critical parts of infrastructure maintained for years to come.
-</p>
-
-<p>
-Beyond the cheapness of maintenance, ClojureScript also has benefits conferred upon it by its place in the Lisp family of languages, which will be discussed later.
+Apps share much in common in their UI code: most popular apps rely on (I'd say) at most a couple dozen foundational component concepts. A high-quality UI library can save a great amount of time that would have been spent making buggy reimplementations of common components. There were many choices for this piece, but I chose <a href="https://material-ui.com/">Material-UI</a> for its long-term stability, its excellent support for mobile devices, eye to usability, and comprehensive component selection. (This also committed me to using <a href="https://reactjs.org/">React</a>, the most popular browser UI framework for a few years now.)
 </p>
 </div>
 </div>
@@ -298,6 +301,13 @@ Beyond the cheapness of maintenance, ClojureScript also has benefits conferred u
 <div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3"><span class="section-number-3">2.3</span> Offline-first: PouchDB</h3>
 <div class="outline-text-3" id="text-2-3">
+
+<figure>
+<p><img src="./img/pdb_diagram.png" class="img-responsive" alt="pdb_diagram.png">
+</p>
+<figcaption><span class="figure-number">Figure 3:</span> PouchDB is located in the user's web browser, making a network connection unnecessary for the app to work.</figcaption>
+</figure>
+
 <p>
 Having an app that still works when you're offline is important if you intend your app for use in the field. This is a historically unusual (though <a href="http://offlinefirst.org/">increasingly</a> <a href="https://en.wikipedia.org/wiki/Progressive_Web_Apps">common</a>) requirement for web browsers, so there was only one suitable option for a library that would enable this: <a href="https://pouchdb.com/">PouchDB</a>. PouchDB is actually a full JavaScript implementation of a more traditional DB that sits on a server, <a href="https://en.wikipedia.org/wiki/Apache_CouchDB">CouchDB</a>. This means that PouchDB has all the power of a traditional database, but its methods can be directly invoked from the browser app code instead of over a connection. Moreover, since CouchDB was designed to tolerate poor network conditions, PouchDB can gracefully and losslessly merge data that's been kept apart for a while (the kind you'd expect if, say, two linguists glossed hundreds of sentences and tweaked lexicon entries in the absence of an internet connection), and as a bonus, it makes Google Docs-style concurrent editing easy (see section 3.6.2).
 </p>
@@ -305,10 +315,22 @@ Having an app that still works when you're offline is important if you intend yo
 </div>
 
 <div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Minimal UI development: Material-UI</h3>
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Cheap maintenance: ClojureScript</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
-Apps share much in common in their UI code: most popular apps rely on (I'd say) at most a couple dozen foundational component concepts. A high-quality UI library can save a great amount of time that would have been spent making buggy reimplementations of common components. There were many choices for this piece, but I chose <a href="https://material-ui.com/">Material-UI</a> for its long-term stability, its excellent support for mobile devices, eye to usability, and comprehensive component selection. (This also committed me to using <a href="https://reactjs.org/">React</a>, the most popular browser UI framework for a few years now.)
+Software requires <a href="https://en.wikipedia.org/wiki/Software_rot">maintenance</a>. Apps necessarily make assumptions about the behavior of all of the code they use, and when that changes, the app's code might also need to change to keep working.
+</p>
+
+<p>
+This code can be used within the app itself, like a JSON parser inside a program, or it could be used in the making of the app. Code in this latter category (compilers, testing frameworks, deployment tools, etc.) also changes, and nowhere has this been more true than in the JavaScript ecosystem since the mid-2000's. For complicated reasons, an entirely new set of utilities, would appear on the scene once every 1-2 years, often often with significant improvements. (<a href="https://www.alexkras.com/my-history-with-web-development-or-javascript-fatigue/">A brief history</a>.) This leaves you with two options if you are using last year's tools: (1) double down and accept the fact that your tools might be obsolete and unmaintained in a few years' time, or (2) accept that last year's tools must be abandoned, and migrate to this year's tools. Both lead to a great amount of work that has nothing to do with delivering features to users.
+</p>
+
+<p>
+I figured that it would be best to avoid this if possible. Looking around, the only language that impressed me with its cheap maintenance, both with respect to tooling and libraries, was <a href="http://www.clojurenewbieguide.com/">ClojureScript</a>, a Lisp-family language that compiles to JavaScript. Its standard build tool, <a href="https://en.wikipedia.org/wiki/Leiningen_(software)">Leiningen</a>, has kept its place as most popular build tool since at least 2010 (!). The language itself is also remarkably stable: the core of ClojureScript (which tries to remain as close to Clojure as possible) has not been significantly changed since 2009 and looks nearly identical to ClojureScript written today. That can't be said for 2009 JavaScript, which is now separated from the present time by several ECMAScript specification updates and shifts in style practices. On the library side, the ClojureScript ecosystem is large enough for that you can be reasonably certain the community will keep critical parts of infrastructure maintained for years to come.
+</p>
+
+<p>
+Beyond the cheapness of maintenance, ClojureScript also has benefits conferred upon it by its place in the Lisp family of languages, which will be discussed later.
 </p>
 </div>
 </div>
@@ -329,7 +351,7 @@ In about 200 hours of development time, I was able to produce a limited port of 
 <figure>
 <p><img src="./img/ewan_upload_elan_file.png" class="img-responsive" alt="ewan_upload_elan_file.png">
 </p>
-<figcaption><span class="figure-number">Figure 1:</span> Uploading an ELAN file with EWAN</figcaption>
+<figcaption><span class="figure-number">Figure 4:</span> Uploading an ELAN file with EWAN</figcaption>
 </figure>
 
 <p>
@@ -693,7 +715,7 @@ There is also a further benefit: since we don't need to interact with a remote d
 <figure>
 <p><img src="./img/ewan_edit.png" class="img-responsive" alt="ewan_edit.png">
 </p>
-<figcaption><span class="figure-number">Figure 2:</span> the main editor view</figcaption>
+<figcaption><span class="figure-number">Figure 5:</span> the main editor view</figcaption>
 </figure>
 
 <p>
@@ -717,7 +739,7 @@ As I just mentioned, to manage state in my app, I used <a href="https://github.c
 <figure>
 <p><img src="./img/one-and-two-way-binding.png" class="img-responsive" alt="one-and-two-way-binding.png">
 </p>
-<figcaption><span class="figure-number">Figure 3:</span> One-way vs. two-way binding. (<a href="http://www.plymouthhistorystore.org/one-way-binding-not-updating.php">src</a>)</figcaption>
+<figcaption><span class="figure-number">Figure 6:</span> One-way vs. two-way binding. (<a href="http://www.plymouthhistorystore.org/one-way-binding-not-updating.php">src</a>)</figcaption>
 </figure>
 
 <p>
@@ -764,6 +786,7 @@ With some small updates to the UI (mostly consisting of a login system), an orga
 </p>
 </div>
 </div>
+
 <div id="outline-container-sec-3-6-2" class="outline-4">
 <h4 id="sec-3-6-2"><span class="section-number-4">3.6.2</span> Real-time editing</h4>
 <div class="outline-text-4" id="text-3-6-2">
@@ -1202,12 +1225,12 @@ There included Kotlin, Scala.js, OCaml/Reason, and Dart, among others.
 <div id="text-table-of-contents" class="bs-docs-sidebar">
 <ul class="nav">
 <li><a href="#sec-1">1. Introduction</a></li>
-<li><a href="#sec-2">2. Requirements and tool decisions</a>
+<li><a href="#sec-2">2. Requirements and tool choices</a>
 <ul class="nav">
 <li><a href="#sec-2-1">2.1. Suitable platform: browser</a></li>
-<li><a href="#sec-2-2">2.2. Cheap maintenance: ClojureScript</a></li>
+<li><a href="#sec-2-2">2.2. Minimal UI development: Material-UI</a></li>
 <li><a href="#sec-2-3">2.3. Offline-first: PouchDB</a></li>
-<li><a href="#sec-2-4">2.4. Minimal UI development: Material-UI</a></li>
+<li><a href="#sec-2-4">2.4. Cheap maintenance: ClojureScript</a></li>
 </ul>
 </li>
 <li><a href="#sec-3">3. Implementation and comparison</a>
