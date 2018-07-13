@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <title></title>
-<!-- 2018-07-12 Thu 21:40 -->
+<!-- 2018-07-13 Fri 01:30 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
-<meta name="author" content="Luke Gessler">
+<meta name="author" content="Luke D. Gessler">
 
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -194,11 +194,11 @@ $(function() {
 </head>
 <body>
 <div id="preamble" class="">
-<div class="container"><div class="row"><div class="col-md-9"><div style="font-size:11px;text-align:center;"><a style="color:gray;" href="/">Home</a> <a style="color:gray;" href="/posts/">Blog</a></div><div style="margin-top:0px;margin-bottom:-12px;color:#a0a0a0;">Luke Gessler</div></div></div></div>
+<div class="container"><div class="row"><div class="col-md-9"><div style="font-size:11px;text-align:center;"><a style="color:gray;" href="/">Home</a> <a style="color:gray;" href="/posts/">Blog</a></div><div style="margin-top:0px;margin-bottom:-12px;color:#a0a0a0;">Luke D. Gessler</div></div></div></div>
 </div>
 <div id="content" class="container">
 <div class="row"><div class="col-md-9"><h1 class="title"></h1>
-<marquee id="marky" style="font-family: Comic Sans MS;color:red;font-size:24px;" scrollamount="24">Welcome to my &lt;marquee&gt; page!</marquee>
+<marquee id="marky" style="font-family: Comic Sans MS;color:red;font-size:24px;" behavior="alternate" height="150" direction="down"><marquee behavior="alternate">Welcome to my &lt;marquee&gt; page!</marquee></marquee>
 <script>
 (function(){
 var colors = 
@@ -257,8 +257,9 @@ var m = document.getElementById("marky");
 var i = 0;
 var s;
 
+m.addEventListener("bounce", () => console.log("hi!"));
 window.setInterval(function() {
-  m.setAttribute("scrollamount", 25 + 15 * Math.cos(++i / 5));
+  m.setAttribute("scrollamount", 10 + 3 * Math.cos(++i / 5));
   m.style.color = colors[i % colors.length];
 }, 240);
 
