@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Choosing the Right Tools for a Language Documentation App</title>
-<!-- 2018-07-13 Fri 21:23 -->
+<!-- 2018-07-14 Sat 12:05 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -340,7 +340,7 @@ Beyond the cheapness of maintenance, ClojureScript also has benefits conferred u
 <h2 id="sec-3"><span class="section-number-2">3</span> Implementation and comparison</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-In about 200 hours of development time, I was able to produce a limited port of ELAN, which I call EWAN. It is <b>not</b> a suitable replacement for the desktop application because of its lack of some core features, but it was complete enough for me to feel confident that I had gotten a good sense for how my tools had helped me. In this section, I will discuss both what I was able to achieve and extensions that I could were easily within reach with just a little more development time. All along, I will compare how I think the tools I used made my work easier as compared with more common tools. You can <a href="https://lgessler.com/ewan/">try out the app for yourself</a>, and <a href="https://github.com/lgessler/ewan">view its source code</a>. 
+In about 200 hours of development time, I was able to produce a limited port of ELAN, which I call EWAN. It is <b>not</b> a suitable replacement for the desktop application because of its lack of some core features. But it was complete enough for me to feel confident that I had understood how much my tools had helped me compared to their more common counterparts. In this section, I will discuss both what I was able to achieve and extensions that I could were easily within reach with just a little more development time. You can <a href="https://lgessler.com/ewan/">try out the app for yourself</a>, and <a href="https://github.com/lgessler/ewan">view its source code</a>. 
 </p>
 </div>
 
@@ -368,17 +368,17 @@ The end result is that something like this:
 
 <div class="org-src-container">
 
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">ANNOTATION_DOCUMENT</span> <span style="font-weight: bold; font-style: italic;">VERSION</span>=<span style="font-style: italic;">"3.0"</span>&gt;
-  &lt;<span style="font-weight: bold;">HEADER</span> <span style="font-weight: bold; font-style: italic;">TIME_UNITS</span>=<span style="font-style: italic;">"milliseconds"</span>&gt;
-    &lt;<span style="font-weight: bold;">MEDIA_DESCRIPTOR</span> 
-        <span style="font-weight: bold; font-style: italic;">MEDIA_URL</span>=<span style="font-style: italic;">"file:///D:/Data/elan/elan-example1.mpg"</span> 
-        <span style="font-weight: bold; font-style: italic;">MIME_TYPE</span>=<span style="font-style: italic;">"video/mpeg"</span>/&gt;
-  &lt;/<span style="font-weight: bold;">HEADER</span>&gt;
-  &lt;<span style="font-weight: bold;">TIME_ORDER</span>&gt;
-    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">... </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
-  &lt;/<span style="font-weight: bold;">TIME_ORDER</span>&gt;
-  <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">... </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
-&lt;/<span style="font-weight: bold;">ANNOTATION_DOCUMENT</span>&gt;
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">ANNOTATION_DOCUMENT</span> <span class="org-nxml-attribute-local-name">VERSION</span>=<span class="org-string">"3.0"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">HEADER</span> <span class="org-nxml-attribute-local-name">TIME_UNITS</span>=<span class="org-string">"milliseconds"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">MEDIA_DESCRIPTOR</span> 
+        <span class="org-nxml-attribute-local-name">MEDIA_URL</span>=<span class="org-string">"file:///D:/Data/elan/elan-example1.mpg"</span> 
+        <span class="org-nxml-attribute-local-name">MIME_TYPE</span>=<span class="org-string">"video/mpeg"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">HEADER</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">TIME_ORDER</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">... </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">TIME_ORDER</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">... </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">ANNOTATION_DOCUMENT</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 
@@ -388,17 +388,17 @@ is turned into this:
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">[<span style="font-weight: bold; text-decoration: underline;">:annotation-document</span> 
- {<span style="font-weight: bold; text-decoration: underline;">:version</span> <span style="font-style: italic;">"3.0"</span>}
- [<span style="font-weight: bold; text-decoration: underline;">:header</span> {<span style="font-weight: bold; text-decoration: underline;">:time-units</span> <span style="font-style: italic;">"milliseconds"</span>}
-  [<span style="font-weight: bold; text-decoration: underline;">:media-descriptor</span> 
-   {<span style="font-weight: bold; text-decoration: underline;">:media-url</span> <span style="font-style: italic;">"file:///D:/Data/elan/elan-example1.mpg"</span> 
-    <span style="font-weight: bold; text-decoration: underline;">:mime-type</span> <span style="font-style: italic;">"video/mpeg"</span>}]]
- [<span style="font-weight: bold; text-decoration: underline;">:time-order</span> 
-  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">...</span>
-  ]
- <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">...</span>
-]
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-clojure-keyword">:annotation-document</span> 
+ <span class="org-rainbow-delimiters-depth-2">{</span><span class="org-clojure-keyword">:version</span> <span class="org-string">"3.0"</span><span class="org-rainbow-delimiters-depth-2">}</span>
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:header</span> <span class="org-rainbow-delimiters-depth-3">{</span><span class="org-clojure-keyword">:time-units</span> <span class="org-string">"milliseconds"</span><span class="org-rainbow-delimiters-depth-3">}</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:media-descriptor</span> 
+   <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:media-url</span> <span class="org-string">"file:///D:/Data/elan/elan-example1.mpg"</span> 
+    <span class="org-clojure-keyword">:mime-type</span> <span class="org-string">"video/mpeg"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span>
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:time-order</span> 
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+  <span class="org-rainbow-delimiters-depth-2">]</span>
+ <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+<span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -407,23 +407,23 @@ is turned into this:
 </p>
 
 <p>
-This is helpful because we're going to be editing the file a lot, and it's easier to work with native data structures than with strings or XML nodes in ClojureScript. 
+This is helpful because we're going to be editing the file a lot, and it's easiest to work with native data structures than with strings or XML nodes. 
 </p>
 
 <p>
-A brief digression: it's worth nothing how ClojureScript's recommended style helps you clearly communicate intent by encouraging you to write many small functions with helpful names. For example, this is <a href="https://github.com/lgessler/ewan/blob/master/src/cljs/ewan/eaf30/eaf30.cljs#L102">the function that is used to turn the raw file string into Hiccup</a>:
+A brief digression: it's worth noting how ClojureScript's recommended style helps you clearly communicate intent by encouraging you to write many small functions with helpful names. For example, this is <a href="https://github.com/lgessler/ewan/blob/master/src/cljs/ewan/eaf30/eaf30.cljs#L102">the function that is used to turn the raw file string into Hiccup</a>:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">eaf-str-&gt;hiccup</span>
-  <span style="font-style: italic;">"Takes the raw text of an EAF file, parses it into XML, and gives the hiccup</span>
-<span style="font-style: italic;">  analog of that XML."</span>
-  [str]
-  (<span style="font-weight: bold;">-&gt;</span> str
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defn</span> <span class="org-function-name">eaf-str-&gt;hiccup</span>
+  <span class="org-doc">"Takes the raw text of an EAF file, parses it into XML, and gives the hiccup</span>
+<span class="org-doc">  analog of that XML."</span>
+  <span class="org-rainbow-delimiters-depth-2">[</span>str<span class="org-rainbow-delimiters-depth-2">]</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">-&gt;</span> str
       unsafe-remove-whitespace
-      <span style="font-weight: bold; text-decoration: underline;">xml</span>/parse-str
-      xml-&gt;hiccup))
+      <span class="org-type">xml</span>/parse-str
+      xml-&gt;hiccup<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -450,19 +450,19 @@ Let's see what that looks like for a toy example: consider an XML format that ha
 
 <div class="org-src-container">
 
-<pre class="src src-xml">&lt;<span style="font-weight: bold;">library</span>&gt;
-  &lt;<span style="font-weight: bold;">authors</span>&gt;
-    &lt;<span style="font-weight: bold;">author</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"Plath"</span>/&gt;
-    &lt;<span style="font-weight: bold;">author</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"Valmiki"</span>/&gt;
-    &lt;<span style="font-weight: bold;">author</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"Apuleius"</span>/&gt;
-  &lt;/<span style="font-weight: bold;">authors</span>&gt;
-  &lt;<span style="font-weight: bold;">books</span>&gt;
-    &lt;<span style="font-weight: bold;">book</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"Ramayana"</span> <span style="font-weight: bold; font-style: italic;">author-id</span>=<span style="font-style: italic;">"Valmiki"</span>/&gt;
-    &lt;<span style="font-weight: bold;">book</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"To The Lighthouse"</span> <span style="font-weight: bold; font-style: italic;">author-id</span>=<span style="font-style: italic;">"Plath"</span>/&gt;
-    &lt;<span style="font-weight: bold;">book</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"Orlando"</span> <span style="font-weight: bold; font-style: italic;">author-id</span>=<span style="font-style: italic;">"Plath"</span>/&gt;
-    &lt;<span style="font-weight: bold;">book</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"The Golden Ass"</span> <span style="font-weight: bold; font-style: italic;">author-id</span>=<span style="font-style: italic;">"Apuleius"</span>/&gt;
-  &lt;/<span style="font-weight: bold;">books</span>&gt;
-&lt;/<span style="font-weight: bold;">library</span>&gt;
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">library</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">authors</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">author</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Plath"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">author</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Valmiki"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">author</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Apuleius"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">authors</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">books</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">book</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Ramayana"</span> <span class="org-nxml-attribute-local-name">author-id</span>=<span class="org-string">"Valmiki"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">book</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"To The Lighthouse"</span> <span class="org-nxml-attribute-local-name">author-id</span>=<span class="org-string">"Plath"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">book</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Orlando"</span> <span class="org-nxml-attribute-local-name">author-id</span>=<span class="org-string">"Plath"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">book</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"The Golden Ass"</span> <span class="org-nxml-attribute-local-name">author-id</span>=<span class="org-string">"Apuleius"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">books</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">library</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 
@@ -472,16 +472,16 @@ In hiccup, this is:
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">[<span style="font-weight: bold; text-decoration: underline;">:library</span>
- [<span style="font-weight: bold; text-decoration: underline;">:authors</span>
-  [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Plath"</span>}]
-  [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-  [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Apuleius"</span>}]]
- [<span style="font-weight: bold; text-decoration: underline;">:books</span>
-  [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Ramayana"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-  [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"To The Lighthouse"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-  [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Orlando"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-  [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"The Golden Ass"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Apuleius"</span>}]]]
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-clojure-keyword">:library</span>
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:authors</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span>
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:books</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Ramayana"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"To The Lighthouse"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Orlando"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-4">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"The Golden Ass"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-4">}</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -491,53 +491,53 @@ Now, we begin the implementation of the spec by defining the constituent element
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">import clojure.spec as s</span>
-(require '[clojure.spec.alpha <span style="font-weight: bold; text-decoration: underline;">:as</span> s])
+<pre class="src src-clojurescript"><span class="org-comment-delimiter">;; </span><span class="org-comment">import clojure.spec as s</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>require '<span class="org-rainbow-delimiters-depth-2">[</span>clojure.spec.alpha <span class="org-clojure-keyword">:as</span> s<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">elt-name</span> 
-  <span style="font-style: italic;">"Returns a function that returns true if its argument is equal to `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">name</span><span style="font-style: italic;">`"</span>
-  [name]
-  (<span style="font-weight: bold;">fn</span> [tag-name]
-    (= name tag-name)))
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defn</span> <span class="org-function-name">elt-name</span> 
+  <span class="org-doc">"Returns a function that returns true if its argument is equal to `</span><span class="org-doc"><span class="org-constant">name</span></span><span class="org-doc">`"</span>
+  <span class="org-rainbow-delimiters-depth-2">[</span>name<span class="org-rainbow-delimiters-depth-2">]</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>fn <span class="org-rainbow-delimiters-depth-3">[</span>tag-name<span class="org-rainbow-delimiters-depth-3">]</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>= name tag-name<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">an id is something that makes the single-argument function `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">string?</span><span style="font-weight: bold; font-style: italic;">` return true</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::id</span> string?) 
+<span class="org-comment-delimiter">;; </span><span class="org-comment">an id is something that makes the single-argument function `</span><span class="org-comment"><span class="org-constant">string?</span></span><span class="org-comment">` return true</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::id</span> string?<span class="org-rainbow-delimiters-depth-1">)</span> 
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">an author element is a vector of two items: a tag name that has the value</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">`</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:author</span><span style="font-weight: bold; font-style: italic;">`, and a map (i.e., a hash-map) that contains a key `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:id</span><span style="font-weight: bold; font-style: italic;">`, whose spec</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">we just defined above</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::author</span> 
-  (<span style="font-weight: bold; text-decoration: underline;">s</span>/cat <span style="font-weight: bold; text-decoration: underline;">:tag</span> (elt-name <span style="font-weight: bold; text-decoration: underline;">:author</span>) 
-         <span style="font-weight: bold; text-decoration: underline;">:attrs</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/keys <span style="font-weight: bold; text-decoration: underline;">:req-un</span> [<span style="font-weight: bold; text-decoration: underline;">::id</span>])))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">an author element is a vector of two items: a tag name that has the value</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">:author</span></span><span class="org-comment">`, and a map (i.e., a hash-map) that contains a key `</span><span class="org-comment"><span class="org-constant">:id</span></span><span class="org-comment">`, whose spec</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">we just defined above</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::author</span> 
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">s</span>/cat <span class="org-clojure-keyword">:tag</span> <span class="org-rainbow-delimiters-depth-3">(</span>elt-name <span class="org-clojure-keyword">:author</span><span class="org-rainbow-delimiters-depth-3">)</span> 
+         <span class="org-clojure-keyword">:attrs</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/keys <span class="org-clojure-keyword">:req-un</span> <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">::id</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">the authors element is a vector of at least one item: a tag name that has the</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">value `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:authors</span><span style="font-weight: bold; font-style: italic;">`, and child elements which conform to the `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">::author</span><span style="font-weight: bold; font-style: italic;">` spec</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::authors</span> 
-  (<span style="font-weight: bold; text-decoration: underline;">s</span>/cat <span style="font-weight: bold; text-decoration: underline;">:tag</span> (elt-name <span style="font-weight: bold; text-decoration: underline;">:authors</span>) 
-         <span style="font-weight: bold; text-decoration: underline;">:children</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/* (<span style="font-weight: bold; text-decoration: underline;">s</span>/spec <span style="font-weight: bold; text-decoration: underline;">::author</span>))))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">the authors element is a vector of at least one item: a tag name that has the</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">value `</span><span class="org-comment"><span class="org-constant">:authors</span></span><span class="org-comment">`, and child elements which conform to the `</span><span class="org-comment"><span class="org-constant">::author</span></span><span class="org-comment">` spec</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::authors</span> 
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">s</span>/cat <span class="org-clojure-keyword">:tag</span> <span class="org-rainbow-delimiters-depth-3">(</span>elt-name <span class="org-clojure-keyword">:authors</span><span class="org-rainbow-delimiters-depth-3">)</span> 
+         <span class="org-clojure-keyword">:children</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/* <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-type">s</span>/spec <span class="org-clojure-keyword">::author</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">an author-id is also a string</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::author-id</span> string?)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">an author-id is also a string</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::author-id</span> string?<span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">a book element is a vector of two items: a tag name that has the value `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:book</span><span style="font-weight: bold; font-style: italic;">`,</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">and a map that contains the keys `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:id</span><span style="font-weight: bold; font-style: italic;">` and `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:author-id</span><span style="font-weight: bold; font-style: italic;">`</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::book</span>
-  (<span style="font-weight: bold; text-decoration: underline;">s</span>/cat <span style="font-weight: bold; text-decoration: underline;">:tag</span> (elt-name <span style="font-weight: bold; text-decoration: underline;">:book</span>) 
-         <span style="font-weight: bold; text-decoration: underline;">:attrs</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/keys <span style="font-weight: bold; text-decoration: underline;">:req-un</span> [<span style="font-weight: bold; text-decoration: underline;">::id</span> <span style="font-weight: bold; text-decoration: underline;">::author-id</span>])))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">a book element is a vector of two items: a tag name that has the value `</span><span class="org-comment"><span class="org-constant">:book</span></span><span class="org-comment">`,</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and a map that contains the keys `</span><span class="org-comment"><span class="org-constant">:id</span></span><span class="org-comment">` and `</span><span class="org-comment"><span class="org-constant">:author-id</span></span><span class="org-comment">`</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::book</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">s</span>/cat <span class="org-clojure-keyword">:tag</span> <span class="org-rainbow-delimiters-depth-3">(</span>elt-name <span class="org-clojure-keyword">:book</span><span class="org-rainbow-delimiters-depth-3">)</span> 
+         <span class="org-clojure-keyword">:attrs</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/keys <span class="org-clojure-keyword">:req-un</span> <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">::id</span> <span class="org-clojure-keyword">::author-id</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">the books element is a vector of at least one item: a tag name that has the</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">value `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:books</span><span style="font-weight: bold; font-style: italic;">`, and child elements which conform to the `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">::book</span><span style="font-weight: bold; font-style: italic;">` spec</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::books</span>
-  (<span style="font-weight: bold; text-decoration: underline;">s</span>/cat <span style="font-weight: bold; text-decoration: underline;">:tag</span> (elt-name <span style="font-weight: bold; text-decoration: underline;">:books</span>) 
-         <span style="font-weight: bold; text-decoration: underline;">:children</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/* (<span style="font-weight: bold; text-decoration: underline;">s</span>/spec <span style="font-weight: bold; text-decoration: underline;">::book</span>))))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">the books element is a vector of at least one item: a tag name that has the</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">value `</span><span class="org-comment"><span class="org-constant">:books</span></span><span class="org-comment">`, and child elements which conform to the `</span><span class="org-comment"><span class="org-constant">::book</span></span><span class="org-comment">` spec</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::books</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">s</span>/cat <span class="org-clojure-keyword">:tag</span> <span class="org-rainbow-delimiters-depth-3">(</span>elt-name <span class="org-clojure-keyword">:books</span><span class="org-rainbow-delimiters-depth-3">)</span> 
+         <span class="org-clojure-keyword">:children</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/* <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-type">s</span>/spec <span class="org-clojure-keyword">::book</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">the library element is a vector of three items: a tag name that has the value </span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">`</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">:authors</span><span style="font-weight: bold; font-style: italic;">`, an element that conforms to the `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">::authors</span><span style="font-weight: bold; font-style: italic;">` spec, and an element that</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">conforms to the `</span><span style="font-weight: bold; font-style: italic; text-decoration: underline;">::books</span><span style="font-weight: bold; font-style: italic;">` spec, in that order.</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::library</span>
-  (<span style="font-weight: bold; text-decoration: underline;">s</span>/cat <span style="font-weight: bold; text-decoration: underline;">:tag</span> (elt-name <span style="font-weight: bold; text-decoration: underline;">:library</span>)
-         <span style="font-weight: bold; text-decoration: underline;">:authors</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/spec <span style="font-weight: bold; text-decoration: underline;">::authors</span>)
-         <span style="font-weight: bold; text-decoration: underline;">:books</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/spec <span style="font-weight: bold; text-decoration: underline;">::books</span>)))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">the library element is a vector of three items: a tag name that has the value </span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">:authors</span></span><span class="org-comment">`, an element that conforms to the `</span><span class="org-comment"><span class="org-constant">::authors</span></span><span class="org-comment">` spec, and an element that</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">conforms to the `</span><span class="org-comment"><span class="org-constant">::books</span></span><span class="org-comment">` spec, in that order.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::library</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">s</span>/cat <span class="org-clojure-keyword">:tag</span> <span class="org-rainbow-delimiters-depth-3">(</span>elt-name <span class="org-clojure-keyword">:library</span><span class="org-rainbow-delimiters-depth-3">)</span>
+         <span class="org-clojure-keyword">:authors</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/spec <span class="org-clojure-keyword">::authors</span><span class="org-rainbow-delimiters-depth-3">)</span>
+         <span class="org-clojure-keyword">:books</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/spec <span class="org-clojure-keyword">::books</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -547,26 +547,26 @@ Now, we can check data structures against any part of the spec and ensure that o
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">(<span style="font-weight: bold; text-decoration: underline;">s</span>/valid? <span style="font-weight: bold; text-decoration: underline;">::id</span> <span style="font-style: italic;">"Ulysses"</span>) 
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; true</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/valid? <span style="font-weight: bold; text-decoration: underline;">::id</span> 2)
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; false</span>
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/explain <span style="font-weight: bold; text-decoration: underline;">::id</span> 2)
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; val: 2 fails spec: ::id predicate: string?</span>
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/valid? <span class="org-clojure-keyword">::id</span> <span class="org-string">"Ulysses"</span><span class="org-rainbow-delimiters-depth-1">)</span> 
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; true</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/valid? <span class="org-clojure-keyword">::id</span> <span class="org-highlight-numbers-number">2</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; false</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/explain <span class="org-clojure-keyword">::id</span> <span class="org-highlight-numbers-number">2</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; val: 2 fails spec: ::id predicate: string?</span>
 
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/valid? 
- <span style="font-weight: bold; text-decoration: underline;">::library</span> 
- [<span style="font-weight: bold; text-decoration: underline;">:library</span>
-  [<span style="font-weight: bold; text-decoration: underline;">:authors</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Apuleius"</span>}]]
-  [<span style="font-weight: bold; text-decoration: underline;">:books</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Ramayana"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"To The Lighthouse"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Orlando"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"The Golden Ass"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Apuleius"</span>}]]])
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; true</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/valid? 
+ <span class="org-clojure-keyword">::library</span> 
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:library</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:authors</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:books</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Ramayana"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"To The Lighthouse"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Orlando"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"The Golden Ass"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; true</span>
 </pre>
 </div>
 
@@ -576,14 +576,14 @@ Note that our implementation isn't done yet: if we have a book with an <code>:au
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">(<span style="font-weight: bold; text-decoration: underline;">s</span>/valid? 
- <span style="font-weight: bold; text-decoration: underline;">::library</span> 
- [<span style="font-weight: bold; text-decoration: underline;">:library</span>
-  [<span style="font-weight: bold; text-decoration: underline;">:authors</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Plath"</span>}]]
-  [<span style="font-weight: bold; text-decoration: underline;">:books</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"The Golden Ass"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Apuleius"</span>}]]])
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; true</span>
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/valid? 
+ <span class="org-clojure-keyword">::library</span> 
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:library</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:authors</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:books</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"The Golden Ass"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; true</span>
 </pre>
 </div>
 
@@ -593,29 +593,29 @@ To amend this, we write a function that checks the structure and ensures that ev
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">(<span style="font-weight: bold;">defn</span> <span style="font-weight: bold;">valid-ids</span>
-  [library]
-  <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">use destructuring assignment to pull out elements</span>
-  (<span style="font-weight: bold;">let</span> [[library-tag 
-         [authors-tag &amp; author-elts] 
-         [books-tag &amp; book-elts]] library
-        <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">obtain the :author-id values and put them into a set</span>
-        author-ids (<span style="font-weight: bold;">-&gt;&gt;</span> author-elts
-                        (map (comp <span style="font-weight: bold; text-decoration: underline;">:id</span> second))
-                        set)]
-    (<span style="font-weight: bold;">-&gt;&gt;</span> book-elts 
-         <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">this function looks at every book and returns true</span>
-         <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">if there is at least one book elt that has an :author-id </span>
-         <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">value that is not present on an :author element</span>
-         (some (<span style="font-weight: bold;">fn</span> [[_ {<span style="font-weight: bold; text-decoration: underline;">:keys</span> [author-id]}]]
-                 (not (some? (get author-ids author-id)))))
-         not)))
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defn</span> <span class="org-function-name">valid-ids</span>
+  <span class="org-rainbow-delimiters-depth-2">[</span>library<span class="org-rainbow-delimiters-depth-2">]</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">use destructuring assignment to pull out elements</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-rainbow-delimiters-depth-4">[</span>library-tag 
+         <span class="org-rainbow-delimiters-depth-5">[</span>authors-tag &amp; author-elts<span class="org-rainbow-delimiters-depth-5">]</span> 
+         <span class="org-rainbow-delimiters-depth-5">[</span>books-tag &amp; book-elts<span class="org-rainbow-delimiters-depth-5">]</span><span class="org-rainbow-delimiters-depth-4">]</span> library
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">obtain the :author-id values and put them into a set</span>
+        author-ids <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">-&gt;&gt;</span> author-elts
+                        <span class="org-rainbow-delimiters-depth-5">(</span>map <span class="org-rainbow-delimiters-depth-6">(</span>comp <span class="org-clojure-keyword">:id</span> second<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                        set<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">]</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">-&gt;&gt;</span> book-elts 
+         <span class="org-comment-delimiter">;; </span><span class="org-comment">this function looks at every book and returns true</span>
+         <span class="org-comment-delimiter">;; </span><span class="org-comment">if there is at least one book elt that has an :author-id </span>
+         <span class="org-comment-delimiter">;; </span><span class="org-comment">value that is not present on an :author element</span>
+         <span class="org-rainbow-delimiters-depth-4">(</span>some <span class="org-rainbow-delimiters-depth-5">(</span>fn <span class="org-rainbow-delimiters-depth-6">[</span><span class="org-rainbow-delimiters-depth-7">[</span>_ <span class="org-rainbow-delimiters-depth-8">{</span><span class="org-clojure-keyword">:keys</span> <span class="org-rainbow-delimiters-depth-9">[</span>author-id<span class="org-rainbow-delimiters-depth-9">]</span><span class="org-rainbow-delimiters-depth-8">}</span><span class="org-rainbow-delimiters-depth-7">]</span><span class="org-rainbow-delimiters-depth-6">]</span>
+                 <span class="org-rainbow-delimiters-depth-6">(</span>not <span class="org-rainbow-delimiters-depth-7">(</span>some? <span class="org-rainbow-delimiters-depth-8">(</span>get author-ids author-id<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+         not<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">::library</span>
-  (<span style="font-weight: bold; text-decoration: underline;">s</span>/and valid-ids
-         (<span style="font-weight: bold; text-decoration: underline;">s</span>/cat <span style="font-weight: bold; text-decoration: underline;">:tag</span> (elt-name <span style="font-weight: bold; text-decoration: underline;">:library</span>)
-                <span style="font-weight: bold; text-decoration: underline;">:authors</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/spec <span style="font-weight: bold; text-decoration: underline;">::authors</span>)
-                <span style="font-weight: bold; text-decoration: underline;">:books</span> (<span style="font-weight: bold; text-decoration: underline;">s</span>/spec <span style="font-weight: bold; text-decoration: underline;">::books</span>))))
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/<span class="org-keyword">def</span> <span class="org-function-name">::library</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">s</span>/and valid-ids
+         <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-type">s</span>/cat <span class="org-clojure-keyword">:tag</span> <span class="org-rainbow-delimiters-depth-4">(</span>elt-name <span class="org-clojure-keyword">:library</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                <span class="org-clojure-keyword">:authors</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-type">s</span>/spec <span class="org-clojure-keyword">::authors</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                <span class="org-clojure-keyword">:books</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-type">s</span>/spec <span class="org-clojure-keyword">::books</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -625,35 +625,35 @@ Now, it behaves like we want it to:
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">(<span style="font-weight: bold; text-decoration: underline;">s</span>/valid?
- <span style="font-weight: bold; text-decoration: underline;">::library</span> 
- [<span style="font-weight: bold; text-decoration: underline;">:library</span>
-  [<span style="font-weight: bold; text-decoration: underline;">:authors</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Apuleius"</span>}]]
-  [<span style="font-weight: bold; text-decoration: underline;">:books</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Ramayana"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"To The Lighthouse"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Orlando"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"The Golden Ass"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Apuleius"</span>}]]])
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; true</span>
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/valid?
+ <span class="org-clojure-keyword">::library</span> 
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:library</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:authors</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:books</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Ramayana"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"To The Lighthouse"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Orlando"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"The Golden Ass"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; true</span>
 
-(<span style="font-weight: bold; text-decoration: underline;">s</span>/valid?
- <span style="font-weight: bold; text-decoration: underline;">::library</span> 
- [<span style="font-weight: bold; text-decoration: underline;">:library</span>
-  [<span style="font-weight: bold; text-decoration: underline;">:authors</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:author</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Apuleius"</span>}]]
-  [<span style="font-weight: bold; text-decoration: underline;">:books</span>
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Ramayana"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Valmiki"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"To The Lighthouse"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"Orlando"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Plath"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"The Golden Ass"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Apuleius"</span>}]
-   [<span style="font-weight: bold; text-decoration: underline;">:book</span> {<span style="font-weight: bold; text-decoration: underline;">:id</span> <span style="font-style: italic;">"The God of Small Things"</span> <span style="font-weight: bold; text-decoration: underline;">:author-id</span> <span style="font-style: italic;">"Roy"</span>}]]])
-<span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">=&gt; false</span>
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Roy is not listed as an author</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-type">s</span>/valid?
+ <span class="org-clojure-keyword">::library</span> 
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-clojure-keyword">:library</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:authors</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:author</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span>
+  <span class="org-rainbow-delimiters-depth-3">[</span><span class="org-clojure-keyword">:books</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Ramayana"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Valmiki"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"To The Lighthouse"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"Orlando"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Plath"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"The Golden Ass"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Apuleius"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span>
+   <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-clojure-keyword">:book</span> <span class="org-rainbow-delimiters-depth-5">{</span><span class="org-clojure-keyword">:id</span> <span class="org-string">"The God of Small Things"</span> <span class="org-clojure-keyword">:author-id</span> <span class="org-string">"Roy"</span><span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">]</span><span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; false</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Roy is not listed as an author</span>
 </pre>
 </div>
 
@@ -662,7 +662,7 @@ Now, it behaves like we want it to:
 </p>
 
 <p>
-Back out of the weeds, the critical thing here is just that clojure.spec is an eminently convenient way for us to remain confident that our data still represents a valid ELAN file as we perform changes to it. The JS ecosystem does have <a href="https://reactjs.org/docs/typechecking-with-proptypes.html">similar</a> <a href="https://github.com/prayerslayer/js.spec">libraries</a>, but they are not as feature-complete or concise as clojure.spec.
+In short, the critical thing here is just that clojure.spec is lets us remain confident that our data still represents a valid ELAN file as we perform changes to it. The JS ecosystem does have <a href="https://reactjs.org/docs/typechecking-with-proptypes.html">similar</a> <a href="https://github.com/prayerslayer/js.spec">libraries</a>, but they are not as feature-complete or concise as clojure.spec.
 </p>
 </div>
 </div>
@@ -676,11 +676,11 @@ Now that we have the ELAN file in a format we can work with, we can persist it t
 
 <div class="org-src-container">
 
-<pre class="src src-javascript"><span style="font-weight: bold;">var</span> <span style="font-weight: bold; font-style: italic;">db</span> = <span style="font-weight: bold;">new</span> <span style="font-weight: bold; text-decoration: underline;">PouchDB</span>(<span style="font-style: italic;">'ewan-db'</span>);
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">...</span>
-db.put(updatedDoc, <span style="font-weight: bold;">function</span>(<span style="font-weight: bold; font-style: italic;">error</span>, <span style="font-weight: bold; font-style: italic;">response</span>) { 
-  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">...</span>
-});
+<pre class="src src-javascript"><span class="org-keyword">var</span> <span class="org-variable-name">db</span> = <span class="org-keyword">new</span> <span class="org-type">PouchDB</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'ewan-db'</span><span class="org-rainbow-delimiters-depth-1">)</span>;
+<span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+db.put<span class="org-rainbow-delimiters-depth-1">(</span>updatedDoc, <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-variable-name">error</span>, <span class="org-variable-name">response</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">{</span> 
+  <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">)</span>;
 </pre>
 </div>
 
@@ -690,11 +690,11 @@ db.put(updatedDoc, <span style="font-weight: bold;">function</span>(<span style=
 
 <div class="org-src-container">
 
-<pre class="src src-clojurescript">(<span style="font-weight: bold;">def</span> <span style="font-weight: bold; font-style: italic;">db</span> (<span style="font-weight: bold; text-decoration: underline;">js</span>/PouchDB. <span style="font-style: italic;">"ewan-db"</span>))
-<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">...</span>
-(.put db updated-doc (<span style="font-weight: bold;">fn</span> [error response]
-                       <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">...</span>
-                       ))
+<pre class="src src-clojurescript"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">def</span> <span class="org-variable-name">db</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">js</span>/PouchDB. <span class="org-string">"ewan-db"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>.put db updated-doc <span class="org-rainbow-delimiters-depth-2">(</span>fn <span class="org-rainbow-delimiters-depth-3">[</span>error response<span class="org-rainbow-delimiters-depth-3">]</span>
+                       <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+                       <span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -703,27 +703,24 @@ As discussed above, since the database exists on the user's hard disk and not re
 </p>
 
 <p>
-There is also a further benefit: since we don't need to interact with a remote database, we also do not need to write any server code! Traditionally, an application like this would send an HTTP request to a server, and the server would communicate with the database and also perform any actions not directly related to manipulations of the data in the database. If an application relies heavily on actions like these, such as sending emails or doing lots of computationally intensive media processing, it is probably a good idea to introduce this extra layer between the client and the database. But if your app only rarely needs to do anything other than change and read data in the database, it is a waste of effort to have this extra layer between the client and the database, provided your database can provide all the needed security controls<sup><a id="fnr.9" name="fnr.9" class="footref" href="#fn.9">9</a></sup>. Since PouchDB sits on the client and can directly communicate with CouchDB (which has <a href="http://docs.couchdb.org/en/2.0.0/intro/security.html">acceptable security features</a>), PouchDB allows us to skip writing backend code<sup><a id="fnr.10" name="fnr.10" class="footref" href="#fn.10">10</a></sup>. 
+There is also a further benefit: since we don't need to interact with a remote database, we do not need to write any server code! Traditionally, an application like this would send an HTTP request to a server, and the server would communicate with the database and also perform any actions not directly related to manipulations of the data in the database. If an application relies heavily on actions like these, such as sending emails or doing lots of computationally intensive media processing, it is probably a good idea to introduce this extra layer between the client and the database. But if your app only rarely needs to do anything other than change and read data in the database, it is a waste of effort to have this extra layer between the client and the database, provided your database can provide all the needed security controls<sup><a id="fnr.9" name="fnr.9" class="footref" href="#fn.9">9</a></sup>. Since PouchDB sits on the client and can directly communicate with CouchDB (which has <a href="http://docs.couchdb.org/en/2.0.0/intro/security.html">acceptable security features</a>), we can skip the app server layer entirely<sup><a id="fnr.10" name="fnr.10" class="footref" href="#fn.10">10</a></sup>. 
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-3-4" class="outline-3">
-<h3 id="sec-3-4"><span class="section-number-3">3.4</span> "Free" UI with Material-UI</h3>
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Free UI with Material-UI</h3>
 <div class="outline-text-3" id="text-3-4">
-
-<figure>
-<p><img src="./img/ewan_edit.png" class="img-responsive" alt="ewan_edit.png">
+<p>
+k<img src="./img/ewan_edit.png" class="img-responsive" alt="ewan_edit.png">
 </p>
-<figcaption><span class="figure-number">Figure 5:</span> the main editor view</figcaption>
-</figure>
 
 <p>
 The entire project's UI was implemented using Material-UI. In the screenshot above, custom components are implemented on top of the basic components Material-UI provides. Material-UI comes with a <a href="https://material.io/tools/icons/?style=baseline">massive icon library</a>, which I used for the buttons on the video player. The most basic parts of ELAN's UI have been carried over, including the time cursor, the basic tier view, and the time bar. 
 </p>
 
 <p>
-The version of Material-UI that I used, 0.x, is not mobile-friendly, but its newest release, 1.0, is! I don't know if you'd want to use a complicated app like ELAN on your phone, but I could see this being an incredible time saver for other, less complicated apps. An adequate mobile interface to your app that comes for free is a big deal.
+The version of Material-UI that I used, 0.x, is not mobile-friendly, but its newest release, 1.0, is responsive! I don't know if you'd want to use a complicated app like ELAN on your phone, but I could see this being an incredible time saver for other, less complicated apps. An adequate mobile interface to your app that comes for free is a big deal.
 </p>
 </div>
 </div>
@@ -739,11 +736,11 @@ As I just mentioned, to manage state in my app, I used <a href="https://github.c
 <figure>
 <p><img src="./img/one-and-two-way-binding.png" class="img-responsive" alt="one-and-two-way-binding.png">
 </p>
-<figcaption><span class="figure-number">Figure 6:</span> One-way vs. two-way binding. (<a href="http://www.plymouthhistorystore.org/one-way-binding-not-updating.php">src</a>)</figcaption>
+<figcaption><span class="figure-number">Figure 5:</span> One-way vs. two-way binding. (<a href="http://www.plymouthhistorystore.org/one-way-binding-not-updating.php">src</a>)</figcaption>
 </figure>
 
 <p>
-In this last function, however, it imposes a constraint. Other comparable frameworks, such as Angular or Ember, allow you to both (1) modify UI state (like the value of a text input field), which is then propagated directly to model state; and (2) modify model state, which is then propagated to UI state. This is called <a href="https://stackoverflow.com/questions/13504906/what-is-two-way-binding">two-way binding</a>. Re-frame (along with other frameworks like React), on the other hand, disallows the first kind of modification, which leaves model state propagating to UI state as the only way for your app to make changes. (UI state can still modify application state <i>somehow</i>, obviously&#x2013;it is just through indirect means. For re-frame, the UI element dispatches a re-frame event, and the event is allowed to update the model.)
+In this last function, however, it imposes a constraint. Other comparable frameworks, such as Angular or Ember, allow you to both (1) directly modify UI state (like the value of a text input field), which is then propagated directly to model state; and (2) modify model state, which is then propagated to UI state. This is called <a href="https://stackoverflow.com/questions/13504906/what-is-two-way-binding">two-way binding</a>. Re-frame (along with other frameworks like React), on the other hand, disallows the first kind of modification, which leaves model state propagating to UI state as the only way for your app to make changes. (UI state can still modify application state <i>somehow</i>, obviously&#x2013;it is just through indirect means. For re-frame, the UI element dispatches a re-frame event, and the event is allowed to update the model.)
 </p>
 
 <p>
@@ -755,7 +752,7 @@ On the other hand, if you allow changes of type (1) to occur, this makes the <a 
 </p>
 
 <p>
-So re-frame, strictly speaking, <i>does</i> take some expressive freedom away from you as a user, but in exchange, you get the peace of mind that comes with having strong expectations about how your app must behave when you are trying to reason about it. The codebase I ended up with, while small (~3000 lines of code) and written by one person, was big enough for me to appreciate the productivity gains that come with this reduction in cognitive strain. My code had had distinct and minimally-interleaved flows of execution, and obviously there was no trouble keeping UI in sync with the data. Had I continued developing this project further into an even larger one, I felt confident that I would be able to keep it readable and easily extensible everywhere.
+So re-frame, strictly speaking, <i>does</i> take some expressive freedom away from you as a user, but in exchange, you get the peace of mind that comes with having strong expectations about how your app must behave when you are trying to reason about it. The codebase I ended up with, while small (~3000 lines of code) and written by one person, was big enough for me to appreciate the productivity gains that come with this check on cognitive strain. My code had had distinct and minimally-interleaved flows of execution, and obviously there was no trouble keeping UI in sync with the data. Had I continued developing this project further into an even larger one, I would have felt confident that I would be able to keep it readable and easily extensible everywhere.
 </p>
 </div>
 </div>
@@ -809,51 +806,51 @@ Since ClojureScript compiles to JavaScript, it is very easy to make such a syste
 
 <div class="org-src-container">
 
-<pre class="src src-javascript"><span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">a collection of functions</span>
-<span style="font-weight: bold;">const</span> <span style="font-weight: bold; font-style: italic;">s</span> = window.ewan.script; 
+<pre class="src src-javascript"><span class="org-comment-delimiter">// </span><span class="org-comment">a collection of functions</span>
+<span class="org-keyword">const</span> <span class="org-variable-name">s</span> = window.ewan.script; 
 
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">imagined feature 1: a programmatic interface for making arbitrary </span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">substitutions for regular expressions</span>
-s.replaceAll(<span style="font-style: italic;">"tierId"</span>, <span style="font-style: italic;">/colour/</span>g, <span style="font-style: italic;">"color"</span>);
+<span class="org-comment-delimiter">// </span><span class="org-comment">imagined feature 1: a programmatic interface for making arbitrary </span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">substitutions for regular expressions</span>
+s.replaceAll<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"tierId"</span>, <span class="org-string">/colour/</span>g, <span class="org-string">"color"</span><span class="org-rainbow-delimiters-depth-1">)</span>;
 
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">imagined feature 2: a more complicated interface that lets you apply a </span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">function to all annotation values on a tier. Suppose we made a transcription</span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">error in our words and forgot to lengthen [u] in front of voiced consonants</span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">in English. We could use this function to correct the issue:</span>
-s.updateAnns(<span style="font-style: italic;">"phoneticTierId"</span>, <span style="font-weight: bold;">function</span>(<span style="font-weight: bold; font-style: italic;">ann</span>) {
-  <span style="font-weight: bold;">const</span> <span style="font-weight: bold; font-style: italic;">text</span> = ann.value;
-  <span style="font-weight: bold;">const</span> <span style="font-weight: bold; font-style: italic;">uIndex</span> = text.indexOf(<span style="font-style: italic;">"u"</span>);
+<span class="org-comment-delimiter">// </span><span class="org-comment">imagined feature 2: a more complicated interface that lets you apply a </span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">function to all annotation values on a tier. Suppose we made a transcription</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">error in our words and forgot to lengthen [u] in front of voiced consonants</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">in English. We could use this function to correct the issue:</span>
+s.updateAnns<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"phoneticTierId"</span>, <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-variable-name">ann</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+  <span class="org-keyword">const</span> <span class="org-variable-name">text</span> = ann.value;
+  <span class="org-keyword">const</span> <span class="org-variable-name">uIndex</span> = text.indexOf<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"u"</span><span class="org-rainbow-delimiters-depth-3">)</span>;
 
-  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">check if we have u followed by a voiced consonant (just consider [b] and [d]</span>
-  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">here for simplicity) and replace with u&#720; if it is</span>
-  <span style="font-weight: bold;">if</span> (uIndex &gt; -1 
-      &amp;&amp; uIndex &lt; text.length - 1
-      &amp;&amp; [<span style="font-style: italic;">'b'</span>, <span style="font-style: italic;">'d'</span>].indexOf(uIndex.charAt(uIndex + 1)) &gt; -1) {
-    ann.value = text.substring(0, uIndex) + <span style="font-style: italic;">"u&#720;"</span> + text.substring(uIndex + 1);
-  }
-});
+  <span class="org-comment-delimiter">// </span><span class="org-comment">check if we have u followed by a voiced consonant (just consider [b] and [d]</span>
+  <span class="org-comment-delimiter">// </span><span class="org-comment">here for simplicity) and replace with u&#720; if it is</span>
+  <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>uIndex &gt; -<span class="org-highlight-numbers-number">1</span> 
+      &amp;&amp; uIndex &lt; text.length - <span class="org-highlight-numbers-number">1</span>
+      &amp;&amp; <span class="org-rainbow-delimiters-depth-4">[</span><span class="org-string">'b'</span>, <span class="org-string">'d'</span><span class="org-rainbow-delimiters-depth-4">]</span>.indexOf<span class="org-rainbow-delimiters-depth-4">(</span>uIndex.charAt<span class="org-rainbow-delimiters-depth-5">(</span>uIndex + <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span> &gt; -<span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">{</span>
+    ann.value = text.substring<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">0</span>, uIndex<span class="org-rainbow-delimiters-depth-4">)</span> + <span class="org-string">"u&#720;"</span> + text.substring<span class="org-rainbow-delimiters-depth-4">(</span>uIndex + <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-4">)</span>;
+  <span class="org-rainbow-delimiters-depth-3">}</span>
+<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">)</span>;
 
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">imagined feature 3: `afterAnnotationCreated`, which executes</span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">an arbitrary function after an annotation is created on a </span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">specified tier. E.g., the sentence "glass isn't strong"</span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">might be turned into four tokens, "glass", "is" "n't", and </span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">"strong", and then these tokens would be turned into</span>
-<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">individual annotations on the child tier</span>
-s.afterAnnotationCreated(<span style="font-style: italic;">"parentTierId"</span>, <span style="font-weight: bold;">function</span>(<span style="font-weight: bold; font-style: italic;">ann</span>) {
-  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">tokenize a sentence using a remote service--this could be</span>
-  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">somewhere on the web or running on the user's machine</span>
-  <span style="font-weight: bold;">const</span> <span style="font-weight: bold; font-style: italic;">response</span> = <span style="font-weight: bold;">await</span> fetch(<span style="font-style: italic;">"https://my.tokenizing.service/?s="</span> + ann.value);
-  <span style="font-weight: bold;">const</span> <span style="font-weight: bold; font-style: italic;">tokens</span> = <span style="font-weight: bold;">await</span> response.json();
-  <span style="font-weight: bold;">for</span> (<span style="font-weight: bold;">let</span> <span style="font-weight: bold; font-style: italic;">token</span> of tokens) {
-    s.addAnnotation(<span style="font-style: italic;">"childTierId"</span>, {parentRef: ann.annotationId,
-                                    value: token.value});
-  }
-});
+<span class="org-comment-delimiter">// </span><span class="org-comment">imagined feature 3: `afterAnnotationCreated`, which executes</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">an arbitrary function after an annotation is created on a </span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">specified tier. E.g., the sentence "glass isn't strong"</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">might be turned into four tokens, "glass", "is" "n't", and </span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">"strong", and then these tokens would be turned into</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">individual annotations on the child tier</span>
+s.afterAnnotationCreated<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"parentTierId"</span>, <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-variable-name">ann</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+  <span class="org-comment-delimiter">// </span><span class="org-comment">tokenize a sentence using a remote service--this could be</span>
+  <span class="org-comment-delimiter">// </span><span class="org-comment">somewhere on the web or running on the user's machine</span>
+  <span class="org-keyword">const</span> <span class="org-variable-name">response</span> = <span class="org-keyword">await</span> fetch<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"https://my.tokenizing.service/?s="</span> + ann.value<span class="org-rainbow-delimiters-depth-3">)</span>;
+  <span class="org-keyword">const</span> <span class="org-variable-name">tokens</span> = <span class="org-keyword">await</span> response.json<span class="org-rainbow-delimiters-depth-3">()</span>;
+  <span class="org-keyword">for</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">let</span> <span class="org-variable-name">token</span> of tokens<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">{</span>
+    s.addAnnotation<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"childTierId"</span>, <span class="org-rainbow-delimiters-depth-5">{</span>parentRef: ann.annotationId,
+                                    value: token.value<span class="org-rainbow-delimiters-depth-5">}</span><span class="org-rainbow-delimiters-depth-4">)</span>;
+  <span class="org-rainbow-delimiters-depth-3">}</span>
+<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">)</span>;
 </pre>
 </div>
 
 <p>
-A bit more on feature 3, since it has a lot of potential: as can be seen, although we used tokenization as an example use case for a hook like this, we could use it for automating virtually any task a user might perform after taking some kind of action in the app. Beyond tokenization, we could use the same kind of pattern to automate forced alignment, morphological parsing, syntactic parsing, semantic parsing, and other annotation tasks that may be tedious, difficult, or both.
+A bit more on feature 3, since it has a lot of potential: although we used tokenization as an example use case for a hook like this, we could use it for automating virtually any task a user might perform after taking some kind of action in the app. Beyond tokenization, we could use the same kind of pattern to automate forced alignment, morphological parsing, syntactic parsing, semantic parsing, and other annotation tasks that may be tedious, difficult, or both.
 </p>
 
 <p>
@@ -1185,7 +1182,7 @@ The validation mechanism spec provides is also accomplishable in your everyday o
 </p></div>
 
 <div class="footdef"><sup><a id="fn.9" name="fn.9" class="footnum" href="#fnr.9">9</a></sup> <p class="footpara">
-For another example of a way toa chieve this architecture, see <a href="https://news.ycombinator.com/item?id=13959156">PostgREST</a>, a library that provides a REST API on top of any PostgreSQL database.
+For another example of a way toa chieve this architecture, see <a href="https://news.ycombinator.com/item?id=13959156">PostgREST</a>, a library that provides a REST API on top of any PostgreSQL database. See also <a href="https://github.com/graphile/postgraphile">Postgraphile</a> for a GraphQL equivalent.
 </p></div>
 
 <div class="footdef"><sup><a id="fn.10" name="fn.10" class="footnum" href="#fnr.10">10</a></sup> <p class="footpara">
@@ -1239,7 +1236,7 @@ There included Kotlin, Scala.js, OCaml/Reason, and Dart, among others.
 <li><a href="#sec-3-1">3.1. Loading and representing ELAN files</a></li>
 <li><a href="#sec-3-2">3.2. Ensuring data integrity with spec</a></li>
 <li><a href="#sec-3-3">3.3. Data persistence and offline support with PouchDB</a></li>
-<li><a href="#sec-3-4">3.4. "Free" UI with Material-UI</a></li>
+<li><a href="#sec-3-4">3.4. Free UI with Material-UI</a></li>
 <li><a href="#sec-3-5">3.5. Managing state with re-frame</a></li>
 <li><a href="#sec-3-6">3.6. Extensions</a></li>
 </ul>
