@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Hosting user-supplied HTML without a server</title>
-<!-- 2019-01-10 Thu 00:58 -->
+<!-- 2019-01-10 Thu 01:01 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -359,7 +359,7 @@ Note what has to be going on behind the scenes in order for this to happen: noho
 <h2 id="sec-4"><span class="section-number-2">4</span> <code>iframe</code> compatibility</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-The major question I had when I considered whether nohost would work in an <code>iframe</code> is whether I'd be able to pass blob URL's into the <code>iframe</code>. It turns out (perhaps surprisingly?) that blob URL's work across <code>iframe</code> boundaries, at least when all the contexts have the same origin, which they do in our circumstances.
+The major question I had when I considered whether nohost would work in an <code>iframe</code> is whether I'd be able to pass blob URL's into the <code>iframe</code>. It turns out that blob URL's work across <code>iframe</code> boundaries, at least when all the contexts have the same origin, which they do in our circumstances.
 </p>
 
 <p>
@@ -385,7 +385,7 @@ What surprised me is that nohost is able to successfully read from the blob URL 
 <h2 id="sec-5"><span class="section-number-2">5</span> Alternatives</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-A lot of this feels kind of hacky, and I wonder if there's a better way to do it. Coincidentally, just after I finished this work, after 5 years of no activity on nohost, its author rewrote it using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a> instead of the approach outlined here. I think the new approach should work with the specific constraints of this hypothetical where all this must happen within an <code>iframe</code>, but I haven't tested it.
+Some of this feels kind of rickety, and I wonder if there's a better way to do it. Coincidentally, just after I finished this work, after 5 years of no activity on nohost, its author rewrote it using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a> instead of the approach outlined here. I think the new approach should work with the specific constraints of this hypothetical where all this must happen within an <code>iframe</code>, but I haven't tested it.
 </p>
 
 
