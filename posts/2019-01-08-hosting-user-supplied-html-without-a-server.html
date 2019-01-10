@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Hosting user-supplied HTML without a server</title>
-<!-- 2019-01-10 Thu 01:01 -->
+<!-- 2019-01-10 Thu 01:03 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -311,11 +311,11 @@ Suppose now that we wanted to load a JavaScript file in our test HTML file. It w
 </div>
 
 <p>
-Uh-oh. When this file gets served by nohost, as we just found out above, its own content will get served just fine, but this <code>script</code> tag will try to retrieve <code>/js/test.js</code>, which is not what we want. This will attempt to contact the server instead of nohost, and this file won't exist.
+Uh-oh. It seems like if this file got served by nohost, using the process we just saw above, its own content will get served just fine, but this <code>script</code> tag will try to retrieve <code>/js/test.js</code>, which is not what we want. This would attempt to contact the server instead of nohost, and this file won't exist.
 </p>
 
 <p>
-The solution is to use the function <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL"><code>URL.createObjectURL</code></a><sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>. This function takes a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob"><code>Blob</code></a> (i.e., some kind of data&#x2014;it could text, a video, anything) and creates a temporary, client-local URL that points to the data. Again, the <a href="https://github.com/humphd/nohost/blob/eea10871f3c4ce623492db2c9e5fe8f1fe0f69de/src/content.js#L89">nohost source code</a> is quite simple:
+But nohost actually properly anticipates and handles this. The key to its solution is using the function <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL"><code>URL.createObjectURL</code></a><sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>. This function takes a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob"><code>Blob</code></a> (i.e., some kind of data&#x2014;it could text, a video, anything) and creates a temporary, client-local URL that points to the data. Again, the <a href="https://github.com/humphd/nohost/blob/eea10871f3c4ce623492db2c9e5fe8f1fe0f69de/src/content.js#L89">nohost source code</a> is quite simple:
 </p>
 
 <div class="org-src-container">
