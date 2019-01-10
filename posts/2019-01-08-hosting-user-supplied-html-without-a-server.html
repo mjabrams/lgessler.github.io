@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>Hosting user-supplied HTML without a server</title>
-<!-- 2019-01-10 Thu 00:39 -->
+<!-- 2019-01-10 Thu 00:58 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -220,7 +220,7 @@ This is the solution I ended up going with:
 </ol>
 
 <p>
-Clearly, all the magic's in step 2. What the heck is an in-browser HTTP server? I am referring specifically to a project named <a href="https://github.com/humphd/nohost">nohost</a> by a talented person named David Humphrey. Nohost emulates a webserver (even imitating the look and feel of an Apache server's default directory browser!) by allowing the installation of arbitrary <code>.zip</code> files in an <a href="https://github.com/filerjs/filer">in-browser file system</a>. Then, when someone asks for a file from an arbitrary directory, nohost retrieves the file from the filesystem and "serves" it.
+Clearly, all the magic's in step 2. What the heck is an in-browser HTTP server? I am referring specifically to a project named <a href="https://github.com/humphd/nohost">nohost</a>. Nohost emulates a webserver (even imitating the look and feel of an Apache server's default directory browser!) by allowing the installation of arbitrary <code>.zip</code> files in an <a href="https://github.com/filerjs/filer">in-browser file system</a>. Then, when someone asks for a file from an arbitrary directory, nohost retrieves the file from the filesystem and "serves" it.
 </p>
 
 <div id="outline-container-sec-1" class="outline-2">
@@ -315,7 +315,7 @@ Uh-oh. When this file gets served by nohost, as we just found out above, its own
 </p>
 
 <p>
-The solution is to use the function <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL"><code>URL.createObjectURL</code></a><sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>. This function takes a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob"><code>Blob</code></a> (i.e., some kind of data&#x2013;it could text, a video, anything) and creates a temporary, client-local URL that points to the data. Again, the <a href="https://github.com/humphd/nohost/blob/eea10871f3c4ce623492db2c9e5fe8f1fe0f69de/src/content.js#L89">nohost source code</a> is quite simple:
+The solution is to use the function <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL"><code>URL.createObjectURL</code></a><sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>. This function takes a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob"><code>Blob</code></a> (i.e., some kind of data&#x2014;it could text, a video, anything) and creates a temporary, client-local URL that points to the data. Again, the <a href="https://github.com/humphd/nohost/blob/eea10871f3c4ce623492db2c9e5fe8f1fe0f69de/src/content.js#L89">nohost source code</a> is quite simple:
 </p>
 
 <div class="org-src-container">
@@ -356,10 +356,36 @@ Note what has to be going on behind the scenes in order for this to happen: noho
 </div>
 
 <div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> Alternatives</h2>
+<h2 id="sec-4"><span class="section-number-2">4</span> <code>iframe</code> compatibility</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-A lot of this feels kind of hacky, and I wonder if there's a better way to do it. Very coincidentally, after 5 years of no activity on nohost, its author rewrote it using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a> instead of the approach outlined here. I think the new approach should work with the specific constraints of this hypothetical where all this must happen within an <code>iframe</code>, but I haven't tested it.
+The major question I had when I considered whether nohost would work in an <code>iframe</code> is whether I'd be able to pass blob URL's into the <code>iframe</code>. It turns out (perhaps surprisingly?) that blob URL's work across <code>iframe</code> boundaries, at least when all the contexts have the same origin, which they do in our circumstances.
+</p>
+
+<p>
+As mentioned above, the workflow in this app involves the following:
+</p>
+
+<ol class="org-ol">
+<li>A user selects a <code>.zip</code> file using an <code>&lt;input&gt;</code> element
+</li>
+<li>The <code>File</code> object is collected from the <code>&lt;input&gt;</code> element, and <code>URL.createObjectURL</code> is invoked upon it to get a blob URL (a <code>File</code> is a <code>Blob</code>).
+</li>
+<li>The <code>iframe</code>'s <code>src</code> attribute is set to <code>index.html?install=...</code> where <code>...</code> is something like <code>blob:http://localhost:3449/3efcc237-6a58-43d8-b446-efbfc1dfb4bd</code>.
+</li>
+</ol>
+
+<p>
+What surprised me is that nohost is able to successfully read from the blob URL even though the blob URL was created in the parent window while it was being used in the child <code>iframe</code> window.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Alternatives</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+A lot of this feels kind of hacky, and I wonder if there's a better way to do it. Coincidentally, just after I finished this work, after 5 years of no activity on nohost, its author rewrote it using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a> instead of the approach outlined here. I think the new approach should work with the specific constraints of this hypothetical where all this must happen within an <code>iframe</code>, but I haven't tested it.
 </p>
 
 
@@ -407,7 +433,8 @@ It's possible that setting src to something like <code>index.html?/js/test.js</c
 <li><a href="#sec-1">1. An example</a></li>
 <li><a href="#sec-2">2. Request interception</a></li>
 <li><a href="#sec-3">3. Dependent files</a></li>
-<li><a href="#sec-4">4. Alternatives</a></li>
+<li><a href="#sec-4">4. <code>iframe</code> compatibility</a></li>
+<li><a href="#sec-5">5. Alternatives</a></li>
 </ul>
 </div>
 </nav>
