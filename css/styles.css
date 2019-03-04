@@ -3,6 +3,9 @@
  */
 footer#postamble {
   background-color: initial;
+  position: initial;
+  bottom: initial;
+  height: initial;
 }
 
 /**
